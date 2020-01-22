@@ -4,10 +4,97 @@ const html = document.querySelector('html')
 const container = document.querySelector('#container')
 
 // Data get!
-fetch('titanic-passengers.json', {mode: 'no-cors'})
+fetch('./titanic-passengers.json')
 .then(res => res.json())
 .then(json => handleData(json))
 .catch(err => console.log(err.message))
+
+// Question 1
+// Get data from the first passenger in the list
+const getFirstPassenger = () => {
+	return
+}
+
+// Question 2
+// How many total passengers?
+const getPassengerCount = () => {
+	// get the length of the list
+	return
+}
+
+// Question 3
+// How many survived?
+const getPassengerSurvive = () => {
+	// Loop over the list and count survived = Yes/No
+	return
+}
+
+// Question 4
+// How many passenger classes?
+const getPassengerClasses = () => {
+	// Loop over the list and look for each unique value
+	// You can use an object or a set for this
+	return
+}
+
+// Question 5
+// How many passengers in each class?
+const getPassengersInClass = () => {
+	// Loop over the list and count the number
+	// of times each unique value appears
+	// Use an object where the key is passenger class
+	return
+}
+
+// Question 6
+// How many died in each class?
+const getPassengerClassSurvival = () => {
+	// Get all of the ages from the Titanic Dataset
+	// Filter data points where the age is missing
+	return
+}
+
+// Question 7
+// How many passengers embarked from Queenstown?
+const getTownPassengers = () => {
+	return
+}
+
+// Question 8
+// How many people traveled with a nanny?
+const getKidsWithNanny = () => {
+	return
+}
+
+// Question 9
+// Find the min and max age.
+const getMinAge = () => {
+	return
+}
+
+// Question 10
+// Find min and max fare.
+const getMaxAge = () => {
+	return
+}
+
+// Question 11
+// How many siblings were there?
+const getSiblings = () => {
+	return
+}
+
+// Question 12
+// What is the survival rate of siblings vs only children?
+const getSiblingSurvival = () => {
+	return
+}
+
+// Question 13
+// How many ages were estimated?
+const getNumAges = () => {
+	return
+}
 
 function handleData(data) {
 	const betterData = data.map(({fields}) => {
