@@ -1,24 +1,20 @@
-<div id="container"></div>
-
+<html>
+	<head>
+		<link
+			rel='stylesheet'
+			type='text/css'
+			href='styles.css'
+		/>
+	</head>
+	<body>
+		<div id='container'></div>
+	</body>
+</html>
 <script>
-	// Create a container
-	const container = document.querySelector('#container')
-	container.style.width = '800px'
-	container.style.height = '400px'
-	container.style.border = '1px solid rgba(0, 0, 0, 0.43)'
-	container.style.borderRadius = '10px'
-	container.style.position = 'relative'
-
 	// Get root tags
 	const body = document.querySelector('body')
 	const html = document.querySelector('html')
-	body.style.height = '100%'
-	html.style.height = '100%'
-
-	// Styling.......mitchell how could you!
-	body.style.display = 'flex'
-	body.style.justifyContent = 'center'
-	body.style.alignItems = 'center'
+	const container = document.querySelector('#container')
 
 	// Data get!
 	fetch('titanic-passengers.json', {mode: 'no-cors'})
