@@ -1,6 +1,5 @@
 ## Infographic vs Data Visualization
-Let's clarify what you are expected to make.
-
+Let's clarify what you are expected to make:
 - An infographic provides information in the form of an image.
 	These are often more comic strip and less abstract.
 	The goal is to inform.
@@ -106,13 +105,10 @@ Using the Titanic dataset, we will be practicing the following techniques using 
 - What is the survival rate of siblings vs only children?
 - How many ages were estimated?
 
-Solve these problems in code.
-
-
+Solve these problems in code:
 - Use JS to read the Titanic Dataset.
 - Write code to solve the problems above
- - Use foreach, map, filter, and reduce
-
+	- Use foreach, map, filter, and reduce
 
 ```JS 
 fetch('titanic-passengers.json')
@@ -128,22 +124,18 @@ function handleData(json) {
 ## Normalizing Data 
 Numbers are great but they aren't perfect for every situation.
 
-
 For example, imagine you want to graph the ages of Titanic passengers.
 They range from 0 to 80.
 Translated to the screen in pixels.
 80px might be too small to display in the space available.
 
-
 Here's another example.
 Imagine graphing the US budget which is measured in millions, billions and trillions of dollars.
 Millions, billions, and trillions would be far too large in pixels.
 
-
 We need a system to convert values in one range into values in another range.
 For example ages 0 to 80 years into 0 to 400 px.
 Or 600 billion dollars into 12 rems.
-
 
 The solution is normalization.
 This is the process of converting values from their original ranges into a range of 0 to 1.
@@ -157,7 +149,7 @@ With the Titanic dataset it would be good to normalize:
 - fare
 - age
 
-Try this on your own
+Try this on your own.
 
 ## Scales 
 Some values would fall on a scale.
@@ -196,7 +188,6 @@ for (let item of data) {
 ```
 
 ## Challenges
-
 - Make a div for each passenger
 	- Give it a width, height, and background color
 - Give each div different background color for survivors
@@ -207,7 +198,6 @@ for (let item of data) {
 - Show passenger class
 - Show the embarkation 
 
-## [**10m**] BREAK
 ## Lab Activity
 Work through the following activities in this order to practice your JS visualization skills:
 1. Finish up the activities and challenges presented earlier in class today if you haven't already
