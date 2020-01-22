@@ -1,6 +1,7 @@
 <div id="container"></div>
 
 <script>
+	// Create a container
 	const container = document.querySelector('#container')
 	container.style.width = '800px'
 	container.style.height = '400px'
@@ -8,16 +9,19 @@
 	container.style.borderRadius = '10px'
 	container.style.position = 'relative'
 
+	// Get root tags
 	const body = document.querySelector('body')
 	const html = document.querySelector('html')
 	body.style.height = '100%'
 	html.style.height = '100%'
 
+	// Styling.......mitchell how could you!
 	body.style.display = 'flex'
 	body.style.justifyContent = 'center'
 	body.style.alignItems = 'center'
 
-	fetch('titanic-passengers.json', { mode: 'no-cors' })
+	// Data get!
+	fetch('titanic-passengers.json', {mode: 'no-cors'})
 	.then(res => res.json())
 	.then(json => handleData(json))
 	.catch(err => console.log(err.message))
@@ -34,19 +38,20 @@
 			}
 			return fields
 		})
-		// click fare button
+
+		// Click fare button
 		betterData.forEach((pessenger) => pessenger.showFare())
 
 		console.log(data)
-		const maxAge = data.reduce((acc, passenger) => { 
+		const maxAge = data.reduce((acc, passenger) => {
 			const age = passenger.fields.age !== undefined ? passenger.fields.age : 0
-			return Math.max(acc, age) 
+			return Math.max(acc, age)
 		}, 0)
 		console.log(maxAge)
 
 		for (let item of data) {
-			const { fields } = item
-			const { fare, name, age, embarked, parch, pclass, sex, sibsp, survived } = fields
+			const {fields} = item
+			const {fare, name, age, embarked, parch, pclass, sex, sibsp, survived} = fields
 
 			const size = fare * 1
 			const bgColor = survived === 'Yes' ? 'rgba(51, 208, 45, 0.125)' : 'rgba(195, 52, 52, 0.125)'
@@ -65,7 +70,7 @@
 			el.style.backgroundColor = bgColor
 			// el.style.backgroundColor = '#000'
 			container.prepend(el)
-		} 
+		}
 	}
 
 	// Challenges 
