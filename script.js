@@ -17,21 +17,29 @@ class Titanic {
 	// Question 1
 	// Get data from the first passenger in the list
 	getFirstPassenger = () => {
-		return
+		return this.data[0]
 	}
 
 	// Question 2
 	// How many total passengers?
 	getPassengerCount = () => {
 		// Get the length of the list
-		return
+		return this.data.length
 	}
 
 	// Question 3
 	// How many survived?
 	getPassengerSurvive = () => {
+		let survivalCount = 0
+
 		// Loop over the list and count survived = Yes/No
-		return
+		data.forEach((entry) => {
+			if (entry['survived'] === true) {
+				survivalCount += 1
+			}
+		})
+
+		return survivalCount
 	}
 
 	// Question 4
@@ -39,7 +47,14 @@ class Titanic {
 	getPassengerClasses = () => {
 		// Loop over the list and look for each unique value
 		// You can use an object or a set for this
-		return
+		let uniques = set()
+
+		data.forEach((entry) => {
+			if (!uniques[entry]) {
+				uniques.add(entry)
+			}
+		})
+		return uniques.size
 	}
 
 	// Question 5
