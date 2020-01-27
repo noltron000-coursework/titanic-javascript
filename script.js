@@ -41,17 +41,25 @@ class Passenger {
 }
 
 class Titanic {
-	constructor(json) {
+	constructor() {
+		// Set variables
+		this.data = array()
+		let json
+
+		// Fetch data
 		fetch('./titanic-passengers.json')
 		.then((response) => {
-			return response.json()
-		})
-		.then((json) => {
-			this.data = json
+			json = response.json()
 			return json
 		})
 		.catch((error) => {
 			console.error(error.message)
+			json = undefined
+		})
+
+		// Clean json
+		json.forEach((entry) => {
+			this.data.append(new Passenger(entry))
 		})
 	}
 
