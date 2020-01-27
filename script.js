@@ -4,14 +4,20 @@ const html = document.querySelector('html')
 const container = document.querySelector('#container')
 
 // Data get!
-fetch('./titanic-passengers.json')
-.then(res => res.json())
-.then(json => handleData(json))
-.catch(err => console.log(err.message))
 
 class Titanic {
 	constructor(json) {
-		this.data = json
+		fetch('./titanic-passengers.json')
+		.then((response) => {
+			return response.json()
+		})
+		.then((json) => {
+			this.data = json
+			return json
+		})
+		.catch((error) => {
+			console.error(error.message)
+		})
 	}
 
 	// Question 1
