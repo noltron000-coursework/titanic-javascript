@@ -76,19 +76,47 @@ class Titanic {
 		return this.data.length
 	}
 
-	// Question 3
-	// How many survived?
-	getPassengerSurvive = () => {
-		let survivalCount = 0
-
-		// Loop over the list and count survived = Yes/No
-		data.forEach((entry) => {
-			if (entry['survived'] === true) {
-				survivalCount += 1
+	// Get all passengers who survived, died, and undefined.
+	getPassangerSurvival = () => {
+		// Create base dictionary
+		let survival = {
+			'lived': [],
+			'died': [],
+			'unknown': [],
+		}
+		// Loop through each item and classify
+		this.data.forEach((entry) => {
+			if (entry.survived === true) {
+				survival['lived'].append(entry)
+			} else if (entry.survived === false) {
+				survival['died'].append(entry)
+			} else {
+				survival['unknown'].append(entry)
 			}
 		})
+		// Return the object
+		return survival
+	}
 
-		return survivalCount
+	getPassengerClasses = () => {
+		let classes = dict()
+		// Loop through each item and classify
+		this.data.forEach((entry) => {
+			if (classes.has(entry['class'])) {
+				classes[entry['class']].append(entry)
+			} else {
+				classes[entry['class']] = array()
+				classes[entry['class']].append(entry)
+			}
+		})
+		// Return the object
+		return classes
+	}
+
+	// Question 3
+	// How many survived?
+	countPassengersWhoLived = () => {
+		return this.getPassengerSurvival['lived'].length
 	}
 
 	// Question 4
