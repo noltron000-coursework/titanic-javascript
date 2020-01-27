@@ -268,13 +268,13 @@ class Titanic {
 		})
 		return counter
 	}
-	/* *******************************************************
+/* *********************************************************
 	// *Question 13*
 	// What is the survival rate of siblings vs only children?
 	getSiblingSurvival = () => {
 		return
 	}
-	******************************************************* */
+********************************************************* */
 
 	// *Question 14*
 	// How many ages were estimated?
@@ -283,6 +283,7 @@ class Titanic {
 	}
 }
 
+/* *********************************************************
 function handleData(data) {
 	const betterData = data.map(({fields}) => {
 		const el = document.createElement('div')
@@ -335,3 +336,4 @@ function handleData(data) {
 // - Make the bars draw vertically
 // - Add the date below each bar
 // - Change the color of each bar
+********************************************************* */
