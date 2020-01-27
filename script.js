@@ -71,13 +71,18 @@ class Titanic {
 
 	// *Question 2*
 	// How many total passengers?
-	getPassengerCount = () => {
+	countPassengers = () => {
 		// Get the length of the list
 		return this.data.length
 	}
 
 	// Get all passengers who survived, died, and undefined.
-	getPassangerSurvival = () => {
+	getPassangerSurvival = (data = undefined) => {
+		// Allow to use this as a helper function
+		if (data === undefined) {
+			data = this.data
+		}
+
 		// Create base dictionary
 		let survival = {
 			'lived': [],
@@ -85,7 +90,7 @@ class Titanic {
 			'unknown': [],
 		}
 		// Loop through each item and classify
-		this.data.forEach((entry) => {
+		data.forEach((entry) => {
 			if (entry.survived === true) {
 				survival['lived'].append(entry)
 			} else if (entry.survived === false) {
@@ -98,10 +103,16 @@ class Titanic {
 		return survival
 	}
 
-	getPassengerClasses = () => {
+	// Get all passangers and classify them by their...class.
+	getPassengerClasses = (data = undefined) => {
+		// Allow to use this as a helper function
+		if (data === undefined) {
+			data = this.data
+		}
+
 		let classes = dict()
 		// Loop through each item and classify
-		this.data.forEach((entry) => {
+		data.forEach((entry) => {
 			if (classes.has(entry['class'])) {
 				classes[entry['class']].append(entry)
 			} else {
@@ -116,74 +127,50 @@ class Titanic {
 	// *Question 3*
 	// How many survived?
 	countPassengersWhoLived = () => {
-		return this.getPassengerSurvival['lived'].length
+		return this.getPassengerSurvival()['lived'].length
 	}
 
 	// *Question 4*
 	// How many passenger classes?
-	getPassengerClasses = () => {
-		// Loop over the list and look for each unique value
-		// You can use an object or a set for this
-		let uniques = set()
-
-		data.forEach((entry) => {
-			const pClass = entry['pclass']
-			if (uniques.has(pClass)) {
-				uniques.add(pClass)
-			}
-		})
-
-		return uniques.size
+	countPassengerClasses = () => {
+		return this.getPassengersInClasses().length
+		
 	}
 
 	// *Question 5*
 	// How many passengers in each class?
-	getPassengersInClass = () => {
-		// Loop over the list and count the number
-		// of times each unique value appears
-		// Use an object where the key is passenger class
-		let uniques = dict()
+	countPassengersInClass = () => {
+		// Declare variables
+		let counter = dict()
+		const pClasses = this.getPassengersInClasses()
 
-		data.forEach((entry) => {
-			const pClass = entry['pclass']
-			if (!uniques[pClass]) {
-				uniques[pClass] = 1
-			} else {
-				uniques[pClass] += 1
-			}
+		// Loop through each class section
+		pClasses.forEach((entry) => {
+			// Get the number of items in the section
+			counter[entry] = pClasses[entry].length
 		})
 
-		return uniques
+		return counter
 	}
 
 	// *Question 6*
 	// How many died in each class?
 	getPassengerClassSurvival = () => {
-		let deaths = dict()
+		// Declare variables
+		let counter = dict()
+		const pClasses = this.getPassengersInClasses()
 
-		data.forEach((entry) => {
-			const pClass = entry['pclass']
-
-			// Clean entry
-			if (entry['survived'] === 'Yes') {
-				const pSurvive = true
-			} else if (entry['survived'] === 'No') {
-				const pSurvive = false
-			} else {
-				const pSurvive = undefined
-			}
-
-			// Count Deaths
-			if (pSurvive === false) {
-				if (pClass in deaths) {
-					deaths[pClass] += 1
-				} else {
-					deaths[pClass] = 1
-				}
-			}
+		// Loop through each class section
+		pClasses.forEach((entry) => {
+			// Get the data in the class section.
+			const section = pClasses[entry]
+			// Get the number of lives and deaths in the section.
+			const sectionData = this.getPassengerSurvival(section)
+			// Set the number of deaths found.
+			counter[entry] = sectionData['died'].length
 		})
 
-		return deaths
+		return counter
 	}
 
 	// *Question 7*
