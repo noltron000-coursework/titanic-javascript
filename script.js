@@ -161,7 +161,7 @@ class Titanic {
 	// How many died in each class?
 	getPassengerClassSurvival = () => {
 		// Declare variables
-		let counter = dict()
+		let histogram = dict()
 		const pClasses = this.getPassengersInClasses()
 
 		// Loop through each class section
@@ -171,19 +171,20 @@ class Titanic {
 			// Get the number of lives and deaths in the section.
 			const sectionData = this.getPassengerSurvival(section)
 			// Set the number of deaths found.
-			counter[entry] = sectionData['died'].length
+			histogram[entry] = sectionData['died'].length
 		})
 
-		return counter
+		return histogram
 	}
 
 	// *Question 7*
 	// Get all of the ages from the Titanic Dataset.
-	getAllAges = (data = undefined) => {
+	listAllAges = (data = undefined) => {
 		// Allow to use this as a helper function.
 		if (data === undefined) {
 			data = this.data
 		}
+
 		// Set variables
 		let ages = array()
 
@@ -199,14 +200,26 @@ class Titanic {
 
 	// *Question 8*
 	// How many passengers embarked from Queenstown?
-	getTownPassengers = () => {
-		return
+	countTownPassengers = () => {
+		let counter = 0
+		this.data.forEach((entry) => {
+			if (entry['embarked'] === 'Q') {
+				counter += 1
+			}
+		})
+		return counter
 	}
 
 	// *Question 9*
 	// How many people traveled with a nanny?
-	getKidsWithNanny = () => {
-		return
+	countKidsWithNanny = () => {
+		let counter = 0
+		this.data.forEach((entry) => {
+			if (entry['age'] < 18 and numChildren === 0) {
+				counter += 1
+			}
+		})
+		return counter
 	}
 
 	// *Question 10*
