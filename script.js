@@ -64,7 +64,7 @@ class Titanic {
 	}
 
 	// *Question 1*
-	// Get data from the first passenger in the list
+	// Get data from the first passenger in the list.
 	getFirstPassenger = () => {
 		return this.data[0]
 	}
@@ -72,24 +72,25 @@ class Titanic {
 	// *Question 2*
 	// How many total passengers?
 	countPassengers = () => {
-		// Get the length of the list
+		// Get the length of the list.
 		return this.data.length
 	}
 
 	// Get all passengers who survived, died, and undefined.
 	getPassangerSurvival = (data = undefined) => {
-		// Allow to use this as a helper function
+		// Allow to use this as a helper function.
 		if (data === undefined) {
 			data = this.data
 		}
 
-		// Create base dictionary
+		// Create base dictionary.
 		let survival = {
 			'lived': [],
 			'died': [],
 			'unknown': [],
 		}
-		// Loop through each item and classify
+
+		// Loop through each item and classify.
 		data.forEach((entry) => {
 			if (entry.survived === true) {
 				survival['lived'].append(entry)
@@ -99,19 +100,22 @@ class Titanic {
 				survival['unknown'].append(entry)
 			}
 		})
-		// Return the object
+
+		// Return the object.
 		return survival
 	}
 
 	// Get all passangers and classify them by their...class.
 	getPassengerClasses = (data = undefined) => {
-		// Allow to use this as a helper function
+		// Set various variables.
+		let classes = dict()
+		// Allow to use this as a helper function.
 		if (data === undefined) {
 			data = this.data
 		}
 
-		let classes = dict()
-		// Loop through each item and classify
+
+		// Loop through each item and classify.
 		data.forEach((entry) => {
 			if (classes.has(entry['class'])) {
 				classes[entry['class']].append(entry)
@@ -120,7 +124,8 @@ class Titanic {
 				classes[entry['class']].append(entry)
 			}
 		})
-		// Return the object
+
+		// Return the object.
 		return classes
 	}
 
