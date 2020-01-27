@@ -55,7 +55,7 @@ class Titanic {
 			// Clean json with passenger class.
 			console.log(json)
 			json.forEach((entry) => {
-				this.data.append(new Passenger(entry))
+				this.data.push(new Passenger(entry))
 			})
 		})
 		.catch((error) => {
