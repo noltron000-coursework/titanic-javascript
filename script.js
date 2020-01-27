@@ -116,8 +116,16 @@ class Titanic {
 	// Question 7
 	// Get all of the ages from the Titanic Dataset.
 	getAllAges = () => { 
+		let ages = array()
+
 		// Filter data points where the age is missing
-		return
+		data.forEach((entry) => {
+			if ('age' in entry) {
+				ages.append(entry['age'])
+			}
+		})
+
+		return ages
 	}
 
 	// Question 8
