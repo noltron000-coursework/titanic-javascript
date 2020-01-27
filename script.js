@@ -63,13 +63,13 @@ class Titanic {
 		})
 	}
 
-	// Question 1
+	// *Question 1*
 	// Get data from the first passenger in the list
 	getFirstPassenger = () => {
 		return this.data[0]
 	}
 
-	// Question 2
+	// *Question 2*
 	// How many total passengers?
 	getPassengerCount = () => {
 		// Get the length of the list
@@ -113,13 +113,13 @@ class Titanic {
 		return classes
 	}
 
-	// Question 3
+	// *Question 3*
 	// How many survived?
 	countPassengersWhoLived = () => {
 		return this.getPassengerSurvival['lived'].length
 	}
 
-	// Question 4
+	// *Question 4*
 	// How many passenger classes?
 	getPassengerClasses = () => {
 		// Loop over the list and look for each unique value
@@ -136,7 +136,7 @@ class Titanic {
 		return uniques.size
 	}
 
-	// Question 5
+	// *Question 5*
 	// How many passengers in each class?
 	getPassengersInClass = () => {
 		// Loop over the list and count the number
@@ -156,7 +156,7 @@ class Titanic {
 		return uniques
 	}
 
-	// Question 6
+	// *Question 6*
 	// How many died in each class?
 	getPassengerClassSurvival = () => {
 		let deaths = dict()
@@ -186,7 +186,7 @@ class Titanic {
 		return deaths
 	}
 
-	// Question 7
+	// *Question 7*
 	// Get all of the ages from the Titanic Dataset.
 	getAllAges = () => { 
 		let ages = array()
@@ -201,43 +201,43 @@ class Titanic {
 		return ages
 	}
 
-	// Question 8
+	// *Question 8*
 	// How many passengers embarked from Queenstown?
 	getTownPassengers = () => {
 		return
 	}
 
-	// Question 9
+	// *Question 9*
 	// How many people traveled with a nanny?
 	getKidsWithNanny = () => {
 		return
 	}
 
-	// Question 10
+	// *Question 10*
 	// Find the min and max age.
 	getMinAge = () => {
 		return
 	}
 
-	// Question 11
+	// *Question 11*
 	// Find min and max fare.
 	getMaxAge = () => {
 		return
 	}
 
-	// Question 12
+	// *Question 12*
 	// How many siblings were there?
 	getSiblings = () => {
 		return
 	}
 
-	// Question 13
+	// *Question 13*
 	// What is the survival rate of siblings vs only children?
 	getSiblingSurvival = () => {
 		return
 	}
 
-	// Question 14
+	// *Question 14*
 	// How many ages were estimated?
 	getNumAges = () => {
 		return
