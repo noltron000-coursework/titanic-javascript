@@ -106,14 +106,13 @@ class Titanic {
 	}
 
 	// Get all passangers and classify them by their...class.
-	getPassengerClasses = (data = undefined) => {
-		// Set various variables.
-		let classes = dict()
+	getPassengersInClass = (data = undefined) => {
 		// Allow to use this as a helper function.
 		if (data === undefined) {
 			data = this.data
 		}
-
+		// Set various variables.
+		let classes = dict()
 
 		// Loop through each item and classify.
 		data.forEach((entry) => {
@@ -138,7 +137,7 @@ class Titanic {
 	// *Question 4*
 	// How many passenger classes?
 	countPassengerClasses = () => {
-		return this.getPassengersInClasses().length
+		return this.getPassengersInClass().length
 		
 	}
 
@@ -147,7 +146,7 @@ class Titanic {
 	countPassengersInClass = () => {
 		// Declare variables
 		let counter = dict()
-		const pClasses = this.getPassengersInClasses()
+		const pClasses = this.getPassengersInClass()
 
 		// Loop through each class section
 		pClasses.forEach((entry) => {
@@ -180,10 +179,15 @@ class Titanic {
 
 	// *Question 7*
 	// Get all of the ages from the Titanic Dataset.
-	getAllAges = () => { 
+	getAllAges = (data = undefined) => {
+		// Allow to use this as a helper function.
+		if (data === undefined) {
+			data = this.data
+		}
+		// Set variables
 		let ages = array()
 
-		// Filter data points where the age is missing
+		// Filter data points where the age is missing.
 		data.forEach((entry) => {
 			if ('age' in entry) {
 				ages.append(entry['age'])
