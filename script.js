@@ -198,6 +198,26 @@ class Titanic {
 		return ages
 	}
 
+	// Get all of the fares.
+	listAllFares = (data = undefined) => {
+		// Allow to use this as a helper function.
+		if (data === undefined) {
+			data = this.data
+		}
+
+		// Set variables
+		let fares = array()
+
+		// Filter data points where the fare is missing.
+		data.forEach((entry) => {
+			if ('fare' in entry) {
+				ages.append(entry['fare'])
+			}
+		})
+
+		return fares
+	}
+
 	// *Question 8*
 	// How many passengers embarked from Queenstown?
 	countTownPassengers = () => {
@@ -225,31 +245,41 @@ class Titanic {
 	// *Question 10*
 	// Find the min and max age.
 	getMinAge = () => {
-		return
+		return Math.max(this.listAllAges())
 	}
 
 	// *Question 11*
 	// Find min and max fare.
 	getMaxAge = () => {
-		return
+		fares = this.listAllFares()
+		max = Math.max(fares)
+		min = Math.min(fares)
+		return [min, max]
 	}
 
 	// *Question 12*
 	// How many siblings were there?
-	getSiblings = () => {
-		return
+	countSiblings = () => {
+		let counter = 0
+		this.data.forEach((entry) => {
+			if (entry['sibsp'] > 0) {
+				counter += 1
+			}
+		})
+		return counter
 	}
-
+	/* *******************************************************
 	// *Question 13*
 	// What is the survival rate of siblings vs only children?
 	getSiblingSurvival = () => {
 		return
 	}
+	******************************************************* */
 
 	// *Question 14*
 	// How many ages were estimated?
 	getNumAges = () => {
-		return
+		return this.listAllAges().length()
 	}
 }
 
