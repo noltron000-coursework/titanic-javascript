@@ -50,10 +50,12 @@ class Titanic {
 		let uniques = set()
 
 		data.forEach((entry) => {
-			if (!uniques[entry]) {
-				uniques.add(entry)
+			const pClass = entry['pclass']
+			if (uniques.has(pClass)) {
+				uniques.add(pClass)
 			}
 		})
+
 		return uniques.size
 	}
 
@@ -63,54 +65,72 @@ class Titanic {
 		// Loop over the list and count the number
 		// of times each unique value appears
 		// Use an object where the key is passenger class
-		return
+		let uniques = dict()
+
+		data.forEach((entry) => {
+			const pClass = entry['pclass']
+			if (!uniques[pClass]) {
+				uniques[pClass] = 1
+			} else {
+				uniques[pClass] += 1
+			}
+		})
+
+		return uniques
 	}
 
 	// Question 6
 	// How many died in each class?
 	getPassengerClassSurvival = () => {
-		// Get all of the ages from the Titanic Dataset
-		// Filter data points where the age is missing
+		uniques = self.getPassengersInClass()
+
 		return
 	}
 
 	// Question 7
+	// Get all of the ages from the Titanic Dataset.
+	getAllAges = () => { 
+		// Filter data points where the age is missing
+		return
+	}
+
+	// Question 8
 	// How many passengers embarked from Queenstown?
 	getTownPassengers = () => {
 		return
 	}
 
-	// Question 8
+	// Question 9
 	// How many people traveled with a nanny?
 	getKidsWithNanny = () => {
 		return
 	}
 
-	// Question 9
+	// Question 10
 	// Find the min and max age.
 	getMinAge = () => {
 		return
 	}
 
-	// Question 10
+	// Question 11
 	// Find min and max fare.
 	getMaxAge = () => {
 		return
 	}
 
-	// Question 11
+	// Question 12
 	// How many siblings were there?
 	getSiblings = () => {
 		return
 	}
 
-	// Question 12
+	// Question 13
 	// What is the survival rate of siblings vs only children?
 	getSiblingSurvival = () => {
 		return
 	}
 
-	// Question 13
+	// Question 14
 	// How many ages were estimated?
 	getNumAges = () => {
 		return
