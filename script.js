@@ -3,6 +3,43 @@ const body = document.querySelector('body')
 const html = document.querySelector('html')
 const container = document.querySelector('#container')
 
+class Passenger {
+	constructor(entry) {
+		// Cleaned metadata
+		this.dataID = entry['datasetid']
+		this.ticketID = entry['fields']['ticket']
+		this.passengerID = entry['fields']['passengerid']
+		this.recordID = entry['recordid']
+		this.recordTime = entry['record_timestamp']
+
+		// Passenger information
+		this.name = entry['fields']['name']
+		this.age = entry['fields']['age']
+		this.sex = entry['fields']['sex']
+		this.fare = entry['fields']['fare']
+		this.class = entry['fields']['pclass']
+		this.cabin = entry['fields']['cabin']
+		this.embarked = entry['fields']['embarked']
+		// This field includes both siblings & spouses.
+		this.numSiblings = entry['fields']['sibsp']
+		// This field includes both children & parents.
+		this.numChildren = entry['fields']['parch']
+		// This field is a string where it should be boolean.
+		this.survived = this._cleanSurvived(entry)
+	}
+
+	_cleanSurvived = (entry) => {
+		switch (entry['fields']['survived']) {
+			case 'Yes':
+				return true
+			case 'No':
+				return false
+			default:
+				return undefined
+		}
+	}
+}
+
 class Titanic {
 	constructor(json) {
 		fetch('./titanic-passengers.json')
