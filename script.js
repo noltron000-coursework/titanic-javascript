@@ -43,23 +43,25 @@ class Passenger {
 class Titanic {
 	constructor() {
 		// Set variables
-		this.data = array()
-		let json
+		this.data = []
 
-		// Fetch data
+		// Fetch data.
 		fetch('./titanic-passengers.json')
 		.then((response) => {
-			json = response.json()
-			return json
+			// Jsonify fetched file.
+			return response.json()
+		})
+		.then((json) => {
+			// Clean json with passenger class.
+			console.log(json)
+			json.forEach((entry) => {
+				this.data.append(new Passenger(entry))
+			})
 		})
 		.catch((error) => {
+			// Explain error to browser.
 			console.error(error.message)
-			json = undefined
-		})
-
-		// Clean json
-		json.forEach((entry) => {
-			this.data.append(new Passenger(entry))
+			throw new Error('Problem handling JSON file!')
 		})
 	}
 
@@ -119,7 +121,7 @@ class Titanic {
 			if (classes.has(entry['class'])) {
 				classes[entry['class']].append(entry)
 			} else {
-				classes[entry['class']] = array()
+				classes[entry['class']] = []
 				classes[entry['class']].append(entry)
 			}
 		})
@@ -186,7 +188,7 @@ class Titanic {
 		}
 
 		// Set variables
-		let ages = array()
+		let ages = []
 
 		// Filter data points where the age is missing.
 		data.forEach((entry) => {
@@ -206,7 +208,7 @@ class Titanic {
 		}
 
 		// Set variables
-		let fares = array()
+		let fares = []
 
 		// Filter data points where the fare is missing.
 		data.forEach((entry) => {
@@ -235,7 +237,7 @@ class Titanic {
 	countKidsWithNanny = () => {
 		let counter = 0
 		this.data.forEach((entry) => {
-			if (entry['age'] < 18 and numChildren === 0) {
+			if (entry['age'] < 18 && numChildren === 0) {
 				counter += 1
 			}
 		})
@@ -284,6 +286,8 @@ class Titanic {
 		return ages.length
 	}
 }
+
+const T = new Titanic()
 
 /* *********************************************************
 function handleData(data) {
