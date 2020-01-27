@@ -3,8 +3,6 @@ const body = document.querySelector('body')
 const html = document.querySelector('html')
 const container = document.querySelector('#container')
 
-// Data get!
-
 class Titanic {
 	constructor(json) {
 		fetch('./titanic-passengers.json')
@@ -88,9 +86,31 @@ class Titanic {
 	// Question 6
 	// How many died in each class?
 	getPassengerClassSurvival = () => {
-		uniques = self.getPassengersInClass()
+		let deaths = dict()
 
-		return
+		data.forEach((entry) => {
+			const pClass = entry['pclass']
+
+			// Clean entry
+			if (entry['survived'] === 'Yes') {
+				const pSurvive = true
+			} else if (entry['survived'] === 'No') {
+				const pSurvive = false
+			} else {
+				const pSurvive = undefined
+			}
+
+			// Count Deaths
+			if (pSurvive === false) {
+				if (pClass in deaths) {
+					deaths[pClass] += 1
+				} else {
+					deaths[pClass] = 1
+				}
+			}
+		})
+
+		return deaths
 	}
 
 	// Question 7
