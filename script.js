@@ -279,7 +279,9 @@ class Titanic {
 	// *Question 14*
 	// How many ages were estimated?
 	getNumAges = () => {
-		return this.listAllAges().length()
+		let ages = this.listAllAges()
+		ages = ages.splice(0, ages.length, ...(new Set(array)))
+		return ages.length
 	}
 }
 
