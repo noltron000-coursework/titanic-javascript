@@ -27,7 +27,7 @@ class Passenger {
 		this.numChildren = entry['fields']['parch']
 		// This field is a string where it should be boolean.
 		this.survived = this._cleanSurvived(entry)
-		
+
 		// Passenger - ticket information.
 		this.fare = entry['fields']['fare']
 		this.class = entry['fields']['pclass']
@@ -49,29 +49,8 @@ class Passenger {
 }
 
 class Titanic {
-	constructor() {
-		// Set variables
-		this.data = []
-
-		// Fetch data.
-		fetch('./titanic-passengers.json')
-		.then((response) => {
-			// Jsonify fetched file.
-			return response.json()
-		})
-		.then((json) => {
-			// Clean json with passenger class.
-			json.forEach((entry) => {
-				this.data.push(new Passenger(entry))
-			})
-			// console.log(this.data)
-		})
-		.catch((error) => {
-			// Explain error to browser.
-			console.error(error.message)
-			throw new Error('Problem handling JSON file!')
-		})
-		// console.log(this.data)
+	constructor(data) {
+		this.data = data
 	}
 
 	// *Question 1*
@@ -150,7 +129,7 @@ class Titanic {
 	// How many passenger classes?
 	countPassengerClasses = () => {
 		return this.getPassengersInClass().length
-		
+
 	}
 
 	// *Question 5*
@@ -297,20 +276,45 @@ class Titanic {
 	}
 }
 
-const T = new Titanic()
+const fetchData = (parse) => {
+	// Fetch data.
+	fetch('./titanic-passengers.json')
+	.then((response) => {
+		// Jsonify fetched file.
+		return response.json()
+	})
+	.then((json) => {
+		// Clean json with the Passenger Class.
+		let data = []
+		json.forEach((entry) => {
+			data.push(new Passenger(entry))
+		})
+		// Use the data in the Titanic Class.
+		return new Titanic(data)
+	})
+	.then((TitanicData) => {
+		// Digest the data with a parse parameter function.
+		parse(TitanicData)
+	})
+	.catch((error) => {
+		// Explain error to browser.
+		console.error(error.message)
+		throw new Error('Problem handling JSON file!')
+	})
+}
 
-logSolutions = (T) => {
+const logSolutions = (T) => {
 	console.log(
+		'=====================================\n' +
 		'PROBLEM #1:\n' +
-		'Retrieve the first passanger\'s name.\n' +
-		'-------------------------------------\n'
+		'Retrieve the first passanger\'s data.\n'
 	)
 	console.info(
 		T.data[0]
 	)
 }
 
-logSolutions(T)
+fetchData(logSolutions)
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 function handleData(data) {
@@ -360,7 +364,7 @@ function handleData(data) {
 	}
 }
 
-// Challenges 
+// Challenges
 // - Add the date to the left of each bar
 // - Make the bars draw vertically
 // - Add the date below each bar
