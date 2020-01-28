@@ -78,24 +78,6 @@ class Titanic {
 		return filter
 	}
 
-
-	// *Question 10*
-	// Find the max age.
-	getMinAge = () => {
-		return Math.max(this.listAllAges())
-	}
-
-	// *Question 12*
-	// How many siblings were there?
-	countSiblings = () => {
-		let counter = 0
-		this.data.forEach((entry) => {
-			if (entry['sibsp'] > 0) {
-				counter += 1
-			}
-		})
-		return counter
-	}
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 	// *Question 13*
 	// What is the survival rate of siblings vs only children?
@@ -317,6 +299,24 @@ const logSolutions = (T) => {
 		}
 		console.info(
 			min, max
+		)
+	}
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #12:\n' +
+			'How many siblings are there?\n'
+		)
+		let counter = 0
+		const passBySiblings = T.filterData('numSiblings')
+		for (key in passBySiblings) {
+			if (key != '0') {
+				counter += passBySiblings[key].length
+			}
+		}
+		console.info(
+			counter
 		)
 	}
 }
