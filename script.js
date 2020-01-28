@@ -61,21 +61,23 @@ class Titanic {
 		})
 		.then((json) => {
 			// Clean json with passenger class.
-			console.log(json)
 			json.forEach((entry) => {
 				this.data.push(new Passenger(entry))
 			})
+			// console.log(this.data)
 		})
 		.catch((error) => {
 			// Explain error to browser.
 			console.error(error.message)
 			throw new Error('Problem handling JSON file!')
 		})
+		// console.log(this.data)
 	}
 
 	// *Question 1*
 	// Get data from the first passenger in the list.
 	getFirstPassenger = () => {
+		// console.log(this.data)
 		return this.data[0]
 	}
 
@@ -278,13 +280,13 @@ class Titanic {
 		})
 		return counter
 	}
-/* *********************************************************
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 	// *Question 13*
 	// What is the survival rate of siblings vs only children?
 	getSiblingSurvival = () => {
 		return
 	}
-********************************************************* */
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
 	// *Question 14*
 	// How many ages were estimated?
@@ -297,7 +299,20 @@ class Titanic {
 
 const T = new Titanic()
 
-/* *********************************************************
+logSolutions = (T) => {
+	console.log(
+		'PROBLEM #1:\n' +
+		'Retrieve the first passanger\'s name.\n' +
+		'-------------------------------------\n'
+	)
+	console.info(
+		T.data[0]
+	)
+}
+
+logSolutions(T)
+
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 function handleData(data) {
 	const betterData = data.map(({fields}) => {
 		const el = document.createElement('div')
@@ -350,4 +365,4 @@ function handleData(data) {
 // - Make the bars draw vertically
 // - Add the date below each bar
 // - Change the color of each bar
-********************************************************* */
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
