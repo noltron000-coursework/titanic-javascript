@@ -78,38 +78,6 @@ class Titanic {
 		return filter
 	}
 
-	// Get all of the fares.
-	listAllFares = (data = undefined) => {
-		// Allow to use this as a helper function.
-		if (data === undefined) {
-			data = this.data
-		}
-
-		// Set variables
-		let fares = []
-
-		// Filter data points where the fare is missing.
-		data.forEach((entry) => {
-			if ('fare' in entry) {
-				ages.append(entry['fare'])
-			}
-		})
-
-		return fares
-	}
-
-	// *Question 8*
-	// How many passengers embarked from Queenstown?
-	countTownPassengers = () => {
-		let counter = 0
-		this.data.forEach((entry) => {
-			if (entry['embarked'] === 'Q') {
-				counter += 1
-			}
-		})
-		return counter
-	}
-
 	// *Question 9*
 	// How many people traveled with a nanny?
 	countKidsWithNanny = () => {
@@ -126,15 +94,6 @@ class Titanic {
 	// Find the min and max age.
 	getMinAge = () => {
 		return Math.max(this.listAllAges())
-	}
-
-	// *Question 11*
-	// Find min and max fare.
-	getMaxAge = () => {
-		fares = this.listAllFares()
-		max = Math.max(fares)
-		min = Math.min(fares)
-		return [min, max]
 	}
 
 	// *Question 12*
@@ -286,6 +245,42 @@ const logSolutions = (T) => {
 		)
 	}
 
+
+	console.log(
+		'PROBLEM #8:\n' +
+		'How many passengers embarked from Queenstown?\n'
+	)
+	console.info(
+		Object.keys(T.filterData('embarked')['Q']).length
+	)
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #11:\n' +
+			'What are the min and max fares in the dataset?\n'
+		)
+		// Create a filtered dictionary of key/data pairs.
+		let passByFare = T.filterData('fare')
+		let min = Infinity
+		let max = -Infinity
+		for (const key in passByFare) {
+			let data = passByFare[key]
+			// Replace data-lists with their length.
+			passByFare[key] = passByFare[key].length
+			// Checks min & max too
+			if (key === undefined) {
+				let doNothing
+			} else if (min > key) {
+				min = key
+			} else if (max < key) {
+				max = key
+			}
+		}
+		console.info(
+			min, max
+		)
+	}
 }
 
 fetchData(logSolutions)
