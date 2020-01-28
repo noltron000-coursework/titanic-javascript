@@ -53,85 +53,29 @@ class Titanic {
 		this.data = data
 	}
 
-	// Get all passengers who survived, died, and undefined.
-	getPassengerSurvival = (data = undefined) => {
-		// Allow to use this as a helper function.
+	createDataFilter = (field, data = undefined) => {
+		// Default to use the entire dataset.
+		// This can be switched to use another set,
+		// for example the result of another filter.
 		if (data === undefined) {
 			data = this.data
 		}
 
-		// Create base dictionary.
-		let survival = {
-			'lived': [],
-			'died': [],
-			'unknown': [],
-		}
+		// This "filter" object is a dictionary of key/list.
+		// A key/list is a self-contained set of filtered data.
+		let filter = {}
 
-		// Loop through each item and classify.
+		// Loop through each item and classify them.
 		data.forEach((entry) => {
-			if (entry.survived === true) {
-				survival['lived'].push(entry)
-			} else if (entry.survived === false) {
-				survival['died'].push(entry)
-			} else {
-				survival['unknown'].push(entry)
+			if (!filter.hasOwnProperty(entry[field])) {
+				// Create a key/list if it does not exist in filter.
+				filter[entry[field]] = []
 			}
+			// Push entry to associated key/list.
+			filter[entry[field]].push(entry)
 		})
 
-		// Return the object.
-		return survival
-	}
-
-	// Get all passangers and classify them by their...class.
-	getPassengersInClass = (data = undefined) => {
-		// Allow to use this as a helper function.
-		if (data === undefined) {
-			data = this.data
-		}
-		// Set various variables.
-		let classes = dict()
-
-		// Loop through each item and classify.
-		data.forEach((entry) => {
-			if (classes.has(entry['class'])) {
-				classes[entry['class']].append(entry)
-			} else {
-				classes[entry['class']] = []
-				classes[entry['class']].append(entry)
-			}
-		})
-
-		// Return the object.
-		return classes
-	}
-
-	// *Question 3*
-	// How many survived?
-	countPassengersWhoLived = () => {
-		return this.getPassengerSurvival()['lived'].length
-	}
-
-	// *Question 4*
-	// How many passenger classes?
-	countPassengerClasses = () => {
-		return this.getPassengersInClass().length
-
-	}
-
-	// *Question 5*
-	// How many passengers in each class?
-	countPassengersInClass = () => {
-		// Declare variables
-		let counter = dict()
-		const pClasses = this.getPassengersInClass()
-
-		// Loop through each class section
-		pClasses.forEach((entry) => {
-			// Get the number of items in the section
-			counter[entry] = pClasses[entry].length
-		})
-
-		return counter
+		return filter
 	}
 
 	// *Question 6*
@@ -298,6 +242,7 @@ const logSolutions = (T) => {
 		T.data[0]
 	)
 
+
 	console.log(
 		'PROBLEM #2:\n' +
 		'Retrieve the length of the dataset.\n'
@@ -312,8 +257,35 @@ const logSolutions = (T) => {
 		'How many survived on the titanic?\n'
 	)
 	console.info(
-		T.getPassengerSurvival()['lived'].length
+		T.createDataFilter('survived')[true].length
 	)
+
+
+	console.log(
+		'PROBLEM #4:\n' +
+		'How many passenger classes exist?\n'
+	)
+	console.info(
+		Object.keys(T.createDataFilter('class')).length
+	)
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #5:\n' +
+			'How many passengers are in each class?\n'
+		)
+		// Create a filtered dictionary of key/data pairs.
+		let passByClass = T.createDataFilter('class')
+		// Modify them to drop the entries and replace w/length.
+		for (const key in passByClass) {
+			passByClass[key] = passByClass[key].length
+		}
+		console.info(
+			passByClass
+		)
+	}
+
 }
 
 fetchData(logSolutions)
