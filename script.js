@@ -78,20 +78,9 @@ class Titanic {
 		return filter
 	}
 
-	// *Question 9*
-	// How many people traveled with a nanny?
-	countKidsWithNanny = () => {
-		let counter = 0
-		this.data.forEach((entry) => {
-			if (entry['age'] < 18 && numChildren === 0) {
-				counter += 1
-			}
-		})
-		return counter
-	}
 
 	// *Question 10*
-	// Find the min and max age.
+	// Find the max age.
 	getMinAge = () => {
 		return Math.max(this.listAllAges())
 	}
@@ -257,6 +246,54 @@ const logSolutions = (T) => {
 
 	{ // Block Scoped to remove unneeded variables after.
 		console.log(
+			'PROBLEM #9:\n' +
+			'How many passengers traveled with a nanny?\n'
+		)
+		// Create a filtered dictionary of key/data pairs.
+		let passByNanny = T.filterData('numChildren')[0]
+		let validChild = []
+		for (const child of passByNanny) {
+			if (child['age'] < 18 && child['age'] > 0) {
+				validChild.push(child)
+			}
+		}
+		console.info(
+			validChild.length
+		)
+	}
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #10:\n' +
+			'What are the youngest and oldest passengers\' age?\n'
+		)
+		// Create a filtered dictionary of key/data pairs.
+		let passByAge = T.filterData('age')
+		let min = Infinity
+		let max = -Infinity
+		for (let key in passByAge) {
+			const data = passByAge[key]
+			// Replace data-lists with the count of each age.
+			passByAge[key] = data.length
+			// Checks min & max too
+			key = parseFloat(key)
+			if (key === NaN || key == null || key == undefined) {
+				let doNothing
+			} else if (min > key) {
+				min = key
+			} else if (max < key) {
+				max = key
+			}
+		}
+		console.info(
+			min, max
+		)
+	}
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
 			'PROBLEM #11:\n' +
 			'What are the min and max fares in the dataset?\n'
 		)
@@ -264,11 +301,12 @@ const logSolutions = (T) => {
 		let passByFare = T.filterData('fare')
 		let min = Infinity
 		let max = -Infinity
-		for (const key in passByFare) {
+		for (let key in passByFare) {
 			let data = passByFare[key]
 			// Replace data-lists with their length.
 			passByFare[key] = passByFare[key].length
 			// Checks min & max too
+			key = parseFloat(key)
 			if (key === undefined) {
 				let doNothing
 			} else if (min > key) {
