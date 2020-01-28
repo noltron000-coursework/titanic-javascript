@@ -53,7 +53,7 @@ class Titanic {
 		this.data = data
 	}
 
-	createDataFilter = (field, data = undefined) => {
+	filterData = (field, data = undefined) => {
 		// Default to use the entire dataset.
 		// This can be switched to use another set,
 		// for example the result of another filter.
@@ -76,47 +76,6 @@ class Titanic {
 		})
 
 		return filter
-	}
-
-	// *Question 6*
-	// How many died in each class?
-	getPassengerClassSurvival = () => {
-		// Declare variables
-		let histogram = dict()
-		const pClasses = this.getPassengersInClasses()
-
-		// Loop through each class section
-		pClasses.forEach((entry) => {
-			// Get the data in the class section.
-			const section = pClasses[entry]
-			// Get the number of lives and deaths in the section.
-			const sectionData = this.getPassengerSurvival(section)
-			// Set the number of deaths found.
-			histogram[entry] = sectionData['died'].length
-		})
-
-		return histogram
-	}
-
-	// *Question 7*
-	// Get all of the ages from the Titanic Dataset.
-	listAllAges = (data = undefined) => {
-		// Allow to use this as a helper function.
-		if (data === undefined) {
-			data = this.data
-		}
-
-		// Set variables
-		let ages = []
-
-		// Filter data points where the age is missing.
-		data.forEach((entry) => {
-			if ('age' in entry) {
-				ages.append(entry['age'])
-			}
-		})
-
-		return ages
 	}
 
 	// Get all of the fares.
@@ -257,7 +216,7 @@ const logSolutions = (T) => {
 		'How many survived on the titanic?\n'
 	)
 	console.info(
-		T.createDataFilter('survived')[true].length
+		T.filterData('survived')[true].length
 	)
 
 
@@ -266,7 +225,7 @@ const logSolutions = (T) => {
 		'How many passenger classes exist?\n'
 	)
 	console.info(
-		Object.keys(T.createDataFilter('class')).length
+		Object.keys(T.filterData('class')).length
 	)
 
 
@@ -276,13 +235,54 @@ const logSolutions = (T) => {
 			'How many passengers are in each class?\n'
 		)
 		// Create a filtered dictionary of key/data pairs.
-		let passByClass = T.createDataFilter('class')
-		// Modify them to drop the entries and replace w/length.
+		let passByClass = T.filterData('class')
 		for (const key in passByClass) {
+			// Replace data-lists with their length.
 			passByClass[key] = passByClass[key].length
 		}
 		console.info(
 			passByClass
+		)
+	}
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #6:\n' +
+			'How many passengers died in each class?\n'
+		)
+		// Create a filtered dictionary of key/data pairs.
+		// We want to first filter by class.
+		let passByClass = T.filterData('class')
+		for (const key in passByClass) {
+			const data = passByClass[key]
+			// Further filter each class-data with survival rates.
+			const passBySurvival = T.filterData('survived', data)
+			// We only want those who died; use the "false" key.
+			const fatalities = passBySurvival[false]
+			// Replace data-lists with the number of fatalities.
+			passByClass[key] = fatalities.length
+		}
+		console.info(
+			passByClass
+		)
+	}
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #7:\n' +
+			'What are all of the ages in the dataset?\n'
+		)
+		// Create a filtered dictionary of key/data pairs.
+		let passByAge = T.filterData('age')
+		for (const key in passByAge) {
+			const data = passByAge[key]
+			// Replace data-lists with the count of each age.
+			passByAge[key] = data.length
+		}
+		console.info(
+			passByAge
 		)
 	}
 
