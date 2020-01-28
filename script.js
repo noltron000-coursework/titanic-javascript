@@ -53,22 +53,8 @@ class Titanic {
 		this.data = data
 	}
 
-	// *Question 1*
-	// Get data from the first passenger in the list.
-	getFirstPassenger = () => {
-		// console.log(this.data)
-		return this.data[0]
-	}
-
-	// *Question 2*
-	// How many total passengers?
-	countPassengers = () => {
-		// Get the length of the list.
-		return this.data.length
-	}
-
 	// Get all passengers who survived, died, and undefined.
-	getPassangerSurvival = (data = undefined) => {
+	getPassengerSurvival = (data = undefined) => {
 		// Allow to use this as a helper function.
 		if (data === undefined) {
 			data = this.data
@@ -84,11 +70,11 @@ class Titanic {
 		// Loop through each item and classify.
 		data.forEach((entry) => {
 			if (entry.survived === true) {
-				survival['lived'].append(entry)
+				survival['lived'].push(entry)
 			} else if (entry.survived === false) {
-				survival['died'].append(entry)
+				survival['died'].push(entry)
 			} else {
-				survival['unknown'].append(entry)
+				survival['unknown'].push(entry)
 			}
 		})
 
@@ -305,12 +291,28 @@ const fetchData = (parse) => {
 
 const logSolutions = (T) => {
 	console.log(
-		'=====================================\n' +
 		'PROBLEM #1:\n' +
 		'Retrieve the first passanger\'s data.\n'
 	)
 	console.info(
 		T.data[0]
+	)
+
+	console.log(
+		'PROBLEM #2:\n' +
+		'Retrieve the length of the dataset.\n'
+	)
+	console.info(
+		T.data.length
+	)
+
+
+	console.log(
+		'PROBLEM #3:\n' +
+		'How many survived on the titanic?\n'
+	)
+	console.info(
+		T.getPassengerSurvival()['lived'].length
 	)
 }
 
