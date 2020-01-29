@@ -77,22 +77,6 @@ class Titanic {
 
 		return filter
 	}
-
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-	// *Question 13*
-	// What is the survival rate of siblings vs only children?
-	getSiblingSurvival = () => {
-		return
-	}
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
-
-	// *Question 14*
-	// How many ages were estimated?
-	getNumAges = () => {
-		let ages = this.listAllAges()
-		ages = ages.splice(0, ages.length, ...(new Set(array)))
-		return ages.length
-	}
 }
 
 const fetchData = (parse) => {
@@ -348,6 +332,14 @@ const logSolutions = (T) => {
 			passBySiblings
 		)
 	}
+	
+	console.log(
+		'PROBLEM #14:\n' +
+		'Count how many unique ages exist in the dataset.\n'
+	)
+	console.info(
+		Object.keys(T.filterData('age')).length
+	)
 }
 
 fetchData(logSolutions)
