@@ -234,14 +234,16 @@ const logSolutions = (T) => {
 			'PROBLEM #10:\n' +
 			'What are the youngest and oldest passengers\' age?\n'
 		)
-		
+
 		const ages = T.data
+		// get all ages in the dataset
 		.map(passenger => passenger.age)
+		// where the age must be defined
 		.filter(age => age !== undefined)
 
 		console.info(
-			Math.min(ages),
-			Math.max(ages)
+			Math.min(...ages),
+			Math.max(...ages)
 		)
 	}
 
@@ -251,26 +253,16 @@ const logSolutions = (T) => {
 			'PROBLEM #11:\n' +
 			'What are the min and max fares in the dataset?\n'
 		)
-		// Create a filtered dictionary of key/data pairs.
-		let passByFare = T.filterData('fare')
-		let min = Infinity
-		let max = -Infinity
-		for (let key in passByFare) {
-			let data = passByFare[key]
-			// Replace data-lists with their length.
-			passByFare[key] = passByFare[key].length
-			// Checks min & max too
-			key = parseFloat(key)
-			if (key === undefined) {
-				let doNothing
-			} else if (min > key) {
-				min = key
-			} else if (max < key) {
-				max = key
-			}
-		}
+
+		const fares = T.data
+		// get all fares in the dataset
+		.map(passenger => passenger.fare)
+		// where the age must be defined
+		.filter(fare => fare !== undefined)
+
 		console.info(
-			min, max
+			Math.min(...fares),
+			Math.max(...fares)
 		)
 	}
 
