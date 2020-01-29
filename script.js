@@ -234,26 +234,14 @@ const logSolutions = (T) => {
 			'PROBLEM #10:\n' +
 			'What are the youngest and oldest passengers\' age?\n'
 		)
-		// Create a filtered dictionary of key/data pairs.
-		let passByAge = T.filterData('age')
-		let min = Infinity
-		let max = -Infinity
-		for (let key in passByAge) {
-			const data = passByAge[key]
-			// Replace data-lists with the count of each age.
-			passByAge[key] = data.length
-			// Checks min & max too
-			key = parseFloat(key)
-			if (key === NaN || key == null || key == undefined) {
-				let doNothing
-			} else if (min > key) {
-				min = key
-			} else if (max < key) {
-				max = key
-			}
-		}
+		
+		const ages = T.data
+		.map(passenger => passenger.age)
+		.filter(age => age !== undefined)
+
 		console.info(
-			min, max
+			Math.min(ages),
+			Math.max(ages)
 		)
 	}
 
