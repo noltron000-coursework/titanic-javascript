@@ -215,16 +215,15 @@ const logSolutions = (T) => {
 			'PROBLEM #9:\n' +
 			'How many passengers traveled with a nanny?\n'
 		)
-		// Create a filtered dictionary of key/data pairs.
-		let passByNanny = T.filterData('numChildren')[0]
-		let validChild = []
-		for (const child of passByNanny) {
-			if (child['age'] < 18 && child['age'] > 0) {
-				validChild.push(child)
-			}
-		}
+
+		let nannyChildren = T.data
+		// get all children under 18
+		.filter(passenger => passenger['age'] < 18)
+		// get all children without a parent
+		.filter(passenger => passenger['numChildren'] === 0)
+
 		console.info(
-			validChild.length
+			nannyChildren.length
 		)
 	}
 
