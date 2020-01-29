@@ -319,6 +319,35 @@ const logSolutions = (T) => {
 			counter
 		)
 	}
+
+
+	{ // Block Scoped to remove unneeded variables after.
+		console.log(
+			'PROBLEM #13:\n' +
+			'Get survival rates of siblings vs only-children.\n'
+		)
+		const passBySiblings = T.filterData('numSiblings')
+		for (const key in passBySiblings) {
+			const data = passBySiblings[key]
+			// Further filter each class-data with survival rates.
+			const passBySurvival = T.filterData('survived', data)
+			// We only want the survival rate.
+			// The rate of survival is true / total
+			let survivors = passBySurvival[true]
+			if (survivors !== undefined) {
+				survivors = survivors.length
+			} else {
+				survivors = 0
+			}
+			const total = passBySiblings[key].length
+			const rate = survivors / total
+			// Replace data-lists with the rate of fatality.
+			passBySiblings[key] = rate
+		}
+		console.info(
+			passBySiblings
+		)
+	}
 }
 
 fetchData(logSolutions)
