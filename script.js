@@ -82,7 +82,11 @@ const logSolutions = (T) => {
 		'How many survived on the titanic?\n'
 	)
 	console.info(
-		T.filterData('survived')[true].length
+		T.data
+		// Filter for passengers who survived.
+		.filter(passenger => passenger['survived'] === true)
+		// Then, check how many entries there are.
+		.length
 	)
 
 
@@ -158,7 +162,11 @@ const logSolutions = (T) => {
 		'How many passengers embarked from Queenstown?\n'
 	)
 	console.info(
-		Object.keys(T.filterData('embarked')['Q']).length
+		T.data
+		// Filter for passengers who embarked from "Q".
+		.filter(passenger => passenger['embarked'] === 'Q')
+		// Then, check how many entries there are.
+		.length
 	)
 
 
