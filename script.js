@@ -177,9 +177,9 @@ const logSolutions = (T) => {
 		)
 
 		let nannyChildren = T.data
-		// get all children under 18
+		// Get all children under 18.
 		.filter(passenger => passenger['age'] < 18)
-		// get all children without a parent
+		// Then, get all children without a parent.
 		.filter(passenger => passenger['numChildren'] === 0)
 
 		console.info(
@@ -195,9 +195,9 @@ const logSolutions = (T) => {
 		)
 
 		const ages = T.data
-		// get all ages in the dataset
+		// Get all ages in the dataset.
 		.map(passenger => passenger.age)
-		// where the age must be defined
+		// Ensure those ages are defined.
 		.filter(age => age !== undefined)
 
 		console.info(
@@ -214,9 +214,9 @@ const logSolutions = (T) => {
 		)
 
 		const fares = T.data
-		// get all fares in the dataset
+		// Get all fares in the dataset.
 		.map(passenger => passenger.fare)
-		// where the age must be defined
+		// Ensure those fares are defined.
 		.filter(fare => fare !== undefined)
 
 		console.info(
@@ -226,22 +226,17 @@ const logSolutions = (T) => {
 	}
 
 
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
-			'PROBLEM #12:\n' +
-			'How many siblings are there?\n'
-		)
-		let counter = 0
-		const passBySiblings = T.filterData('numSiblings')
-		for (key in passBySiblings) {
-			if (key != '0') {
-				counter += passBySiblings[key].length
-			}
-		}
-		console.info(
-			counter
-		)
-	}
+	console.log(
+		'PROBLEM #12:\n' +
+		'How many siblings are there?\n'
+	)
+	console.info(
+		T.data
+		// Filter for passengers who have one or more siblings.
+		.filter(passenger => passenger.numSiblings > 0)
+		// Count how many passengers meet this criteria.
+		.length
+	)
 
 
 	{ // Block Scoped to remove unneeded variables after.
