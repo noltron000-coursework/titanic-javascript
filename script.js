@@ -196,7 +196,7 @@ const logSolutions = (T) => {
 
 		const ages = T.data
 		// Get all ages in the dataset.
-		.map(passenger => passenger.age)
+		.map(passenger => passenger['age'])
 		// Ensure those ages are defined.
 		.filter(age => age !== undefined)
 
@@ -215,13 +215,12 @@ const logSolutions = (T) => {
 
 		const fares = T.data
 		// Get all fares in the dataset.
-		.map(passenger => passenger.fare)
+		.map(passenger => passenger['fare'])
 		// Ensure those fares are defined.
 		.filter(fare => fare !== undefined)
 
 		console.info(
-			Math.min(...fares),
-			Math.max(...fares)
+			Math.min(...fares), Math.max(...fares)
 		)
 	}
 
@@ -233,7 +232,7 @@ const logSolutions = (T) => {
 	console.info(
 		T.data
 		// Filter for passengers who have one or more siblings.
-		.filter(passenger => passenger.numSiblings > 0)
+		.filter(passenger => passenger['numSiblings'] > 0)
 		// Count how many passengers meet this criteria.
 		.length
 	)
