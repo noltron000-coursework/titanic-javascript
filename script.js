@@ -48,11 +48,8 @@ const fetchData = (parse) => {
 			data.push(new Passenger(entry))
 		})
 		// Use the data in the Titanic Class.
-		return new Titanic(data)
-	})
-	.then((TitanicData) => {
 		// Digest the data with a parse parameter function.
-		parse(TitanicData)
+		parse(new Titanic(data))
 	})
 	.catch((error) => {
 		// Explain error to browser.
