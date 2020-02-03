@@ -1,8 +1,3 @@
-// Get root tags
-const body = document.querySelector('body')
-const html = document.querySelector('html')
-const container = document.querySelector('#container')
-
 class Titanic {
 	constructor(data) {
 		this.data = data
