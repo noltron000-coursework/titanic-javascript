@@ -7,17 +7,18 @@ class DataDrawing {
 		this.data = T.data
 		this.createNodes()
 		this.renderNodes()
+		this.filterByGender()
 	}
 
 	createNodes = () => {
-		// elements array will contain all the passenger nodes.
-		const elements = this.data.map((passenger, index) => {
+		// nodes array will contain all the passenger nodes.
+		const nodes = this.data.map((passenger, index) => {
 			const div = document.createElement('div')
 			div.classList.add('passenger')
 			div.setAttribute('data-index', index)
 			return div
 		})
-		this.nodes = elements
+		this.nodes = nodes
 	}
 
 	renderNodes = () => {
@@ -27,12 +28,22 @@ class DataDrawing {
 		})
 	}
 
-	filterByGender = (T) => {
-		const men = T.data.filter((passenger) => {
+	filterByGender = () => {
+		const men = this.nodes.filter((div, index) => {
+			const passenger = this.data[index]
 			return passenger.sex == 'male'
 		})
-		const women = T.data.filter((passenger) => {
+
+		const women = this.nodes.filter((div, index) => {
+			const passenger = this.data[index]
 			return passenger.sex == 'female'
+		})
+		
+		men.forEach((div) => {
+			div.classList.add('male')
+		})
+		women.forEach((div) => {
+			div.classList.add('female')
 		})
 	}
 }
