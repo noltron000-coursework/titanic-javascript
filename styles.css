@@ -1,13 +1,5 @@
-#container {
-	width: 600px;
-	height: 100%;
-	background-color: grey;
-}
-
-.passenger {
-	height: 20px;
-	width: 20px;
-	background-color: black;
+* {
+	box-sizing: border-box;
 }
 
 body, html {
@@ -15,4 +7,18 @@ body, html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+#container {
+	background-color: grey;
+}
+
+.passenger {
+	display: inline-block;
+	margin: 2px;
+	height: 20px;
+	width: 20px;
+	background-color: black;
 }
