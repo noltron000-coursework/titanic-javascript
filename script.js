@@ -275,7 +275,7 @@ const logSolutions = (T) => {
 	)
 }
 
-fetchData(logSolutions)
+fetchData(drawData)
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 function handleData(data) {
