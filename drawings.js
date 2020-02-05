@@ -14,7 +14,6 @@ class DataDrawing {
 		// nodes array will contain all the passenger nodes.
 		const nodes = this.data.map((passenger, index) => {
 			const div = document.createElement('div')
-			div.classList.add('passenger')
 			div.setAttribute('data-index', index)
 			return div
 		})

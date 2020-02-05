@@ -15,7 +15,7 @@ body, html {
 	background-color: grey;
 }
 
-.passenger {
+#container > div {
 	display: inline-block;
 	margin: 2px;
 	height: 20px;
@@ -23,10 +23,10 @@ body, html {
 	background-color: black;
 }
 
-.male {
+#container > .male {
 	background-color: red;
 }
 
-.female {
+#container > .female {
 	background-color: blue;
 }
