@@ -30,3 +30,13 @@ body, html {
 #container > .female {
 	background-color: blue;
 }
+
+#container > .died {
+	border-style: dashed;
+	border-color: orange;
+}
+
+#container > .survived {
+	border-style: dashed;
+	border-color: greenyellow;
+}

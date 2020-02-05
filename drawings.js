@@ -8,6 +8,7 @@ class DataDrawing {
 		this.createNodes()
 		this.renderNodes()
 		this.filterByGender()
+		this.filterBySurvival()
 	}
 
 	createNodes = () => {
@@ -43,6 +44,26 @@ class DataDrawing {
 		})
 		women.forEach((div) => {
 			div.classList.add('female')
+		})
+	}
+	
+	filterBySurvival = () => {
+		const died = this.nodes.filter((div, index) => {
+			const passenger = this.data[index]
+			return passenger.survived == true
+		})
+
+		const survived = this.nodes.filter((div, index) => {
+			const passenger = this.data[index]
+			return passenger.survived == false
+		})
+
+		died.forEach((div) => {
+			div.classList.add('died')
+		})
+
+		survived.forEach((div) => {
+			div.classList.add('survived')
 		})
 	}
 }
