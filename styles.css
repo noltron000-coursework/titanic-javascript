@@ -22,3 +22,11 @@ body, html {
 	width: 20px;
 	background-color: black;
 }
+
+.sex.male {
+	background-color: red;
+}
+
+.sex.female {
+	background-color: blue;
+}
