@@ -1,3 +1,4 @@
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 class Titanic {
 	constructor(data) {
 		this.data = data
@@ -28,8 +29,9 @@ class Titanic {
 		return filter
 	}
 }
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-const fetchData = (parse) => {
+const fetchData = (manipulate) => {
 	// Fetch data.
 	fetch('./titanic-passengers.json')
 	.then((response) => {
@@ -38,13 +40,13 @@ const fetchData = (parse) => {
 	})
 	.then((json) => {
 		// Clean json with the Passenger Class.
-		let data = []
+		let data = new Array()
 		json.forEach((entry) => {
 			data.push(new Passenger(entry))
 		})
 		// Use the data in the Titanic Class.
-		// Digest the data with a parse parameter function.
-		parse(new Titanic(data))
+		// Digest the dataset with a "manipulate" function.
+		manipulate(data)
 	})
 	.catch((error) => {
 		// Explain error to browser.
@@ -53,4 +55,4 @@ const fetchData = (parse) => {
 	})
 }
 
-fetchData(drawData)
+fetchData(logSolutions)

@@ -1,19 +1,18 @@
-const logSolutions = (T) => {
+const logSolutions = (data) => {
 	console.log(
 		'PROBLEM #1:\n' +
 		'Retrieve the first passanger\'s data.\n'
 	)
 	console.info(
-		T.data[0]
+		data[0]
 	)
-
 
 	console.log(
 		'PROBLEM #2:\n' +
 		'Retrieve the length of the dataset.\n'
 	)
 	console.info(
-		T.data.length
+		data.length
 	)
 
 
@@ -22,7 +21,7 @@ const logSolutions = (T) => {
 		'How many survived on the titanic?\n'
 	)
 	console.info(
-		T.data
+		data
 		// Filter for passengers who survived.
 		.filter(passenger => passenger['survived'] === true)
 		// Then, check how many entries there are.
@@ -61,6 +60,7 @@ const logSolutions = (T) => {
 			'PROBLEM #6:\n' +
 			'How many passengers died in each class?\n'
 		)
+
 		// Create a filtered dictionary of key/data pairs.
 		// We want to first filter by class.
 		let passByClass = T.filterData('class')
@@ -102,7 +102,7 @@ const logSolutions = (T) => {
 		'How many passengers embarked from Queenstown?\n'
 	)
 	console.info(
-		T.data
+		dataset
 		// Filter for passengers who embarked from "Q".
 		.filter(passenger => passenger['embarked'] === 'Q')
 		// Then, check how many entries there are.
@@ -116,7 +116,7 @@ const logSolutions = (T) => {
 			'How many passengers traveled with a nanny?\n'
 		)
 
-		let nannyChildren = T.data
+		let nannyChildren = dataset
 		// Get all children under 18.
 		.filter(passenger => passenger['age'] < 18)
 		// Then, get all children without a parent.
@@ -134,7 +134,7 @@ const logSolutions = (T) => {
 			'What are the youngest and oldest passengers\' age?\n'
 		)
 
-		const ages = T.data
+		const ages = dataset
 		// Get all ages in the dataset.
 		.map(passenger => passenger.age)
 		// Ensure those ages are defined.
@@ -153,7 +153,7 @@ const logSolutions = (T) => {
 			'What are the min and max fares in the dataset?\n'
 		)
 
-		const fares = T.data
+		const fares = dataset
 		// Get all fares in the dataset.
 		.map(passenger => passenger.fare)
 		// Ensure those fares are defined.
@@ -171,7 +171,7 @@ const logSolutions = (T) => {
 		'How many siblings are there?\n'
 	)
 	console.info(
-		T.data
+		dataset
 		// Filter for passengers who have one or more siblings.
 		.filter(passenger => passenger.numSiblings > 0)
 		// Count how many passengers meet this criteria.
