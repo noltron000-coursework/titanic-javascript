@@ -1,4 +1,4 @@
-class SolutionLogger extends Visualizer {
+class SolutionLogger extends Dataset {
 	constructor(data) {
 		super(data)
 		this.problems  = [
