@@ -1,7 +1,6 @@
 // Takes in a data-array and a field-string.
 // Returns a newly partitioned map.
-const _partitionHelper = (data, field) => {
-	console.warn(data)
+const _dataMapper = (data, field) => {
 	// This partition Object is a dictionary of key/list.
 	// Actually, its not an Object, its a Map.
 	// This allows its keys to be non-string typed.
@@ -21,15 +20,21 @@ const _partitionHelper = (data, field) => {
 	return partition
 }
 
-const partitionData = (data, ...fields) => {
-	// if there are any fields left
+const split = (data, ...fields) => {
+	// If there are any fields left, continue recursion...
 	if (fields.length > 0) {
-		// retrieve the next field
+		// Retrieve the next field from the given list.
+		// Shift removes the first field, then captures it.
 		const field = fields.shift()
-		// partition data by field's value
-		data = _partitionHelper(data, field)
-		// repeat on partitioned data
-		return partitionData(data, ...fields)
+		// Partition data by declared field's value.
+		// This makes a Map of partitioned Arrays.
+		const map = _dataMapper(data, field)
+		// Repeat on the Mapped Arrays with remaining fields.
+		map.forEach((mapData, mapField) => {
+			mapData = split(mapData, ...fields)
+			map.set(mapField, mapData)
+		})
+		return map
 	}
 	return data
 }

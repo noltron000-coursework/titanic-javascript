@@ -74,7 +74,7 @@ class SolutionLogger extends Visualizer {
 		)
 
 		// ...
-		const partition = partitionData(this.data, 'class')
+		const partition = split(this.data, 'class')
 		// TODO: just count the number of keys in the map!
 		const solution = partition
 
@@ -88,7 +88,7 @@ class SolutionLogger extends Visualizer {
 		)
 
 		// ...
-		const partition = partitionData(this.data, 'class')
+		const partition = split(this.data, 'class')
 		// TODO: count the number of entries in each sub-map.
 		const solution = partition
 
@@ -102,7 +102,7 @@ class SolutionLogger extends Visualizer {
 		)
 
 		// ...
-		const partition = partitionData(this.data, 'class', 'survived')
+		const partition = split(this.data, 'class', 'survived')
 		// TODO: count the number of falses in each sub-map.
 		const solution = partition
 
@@ -119,7 +119,7 @@ class SolutionLogger extends Visualizer {
 		)
 
 		// Create a filtered dictionary of key/data pairs.
-		let partition = partitionData(this.data, 'age')
+		let partition = split(this.data, 'age')
 		// TODO: count the number of unique ages.
 		// NOTE: also, this *could* just use a set of keys...
 		// This could be filtered into 5-year age buckets too.
@@ -135,7 +135,7 @@ class SolutionLogger extends Visualizer {
 			'How many passengers embarked from Queenstown?\n'
 		)
 
-		let partition = partitionData(this.data, 'embarked')
+		let partition = split(this.data, 'embarked')
 		// TODO: use the "Q" key from the map and count entries.
 		const solution = partition
 
