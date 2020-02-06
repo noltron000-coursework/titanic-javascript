@@ -53,4 +53,4 @@ const fetchData = (parse) => {
 	})
 }
 
-fetchData(logSolutions)
+fetchData(drawData)
