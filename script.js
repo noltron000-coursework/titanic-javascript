@@ -1,27 +1,3 @@
-// Takes in a Data-Array and a field of any type.
-// The Array is some sort of Class or Object with keys.
-// The Array is split up by its entries' field properties.
-// This function returns the result of this computation.
-const _dataMapper = (data, field) => {
-	// This map is a kind of Object with Key:Array values.
-	// Particularly, Maps allow Keys to be any type.
-	const map = new Map()
-
-	// Loop through each passenger and classify them.
-	data.forEach((passenger) => {
-		mapField = passenger[field]
-
-		// Create a Key:Array pair if it does not yet exist.
-		if (map.get(mapField) === undefined) {
-			map.set(mapField, new Array())
-		}
-
-		// Push passenger to the associated Key:Array pair.
-		map.get(mapField).push(passenger)
-	})
-	return map
-}
-
 // Takes a Data-Array and various fields of any type.
 // The split function chops up the Array.
 //
@@ -64,6 +40,30 @@ const split = (data, ...fields) => {
 	// The data is of type Array if it reaches this.
 	// There are no further children past the array.
 	return data
+}
+
+// Takes in a Data-Array and a field of any type.
+// The Array is some sort of Class or Object with keys.
+// The Array is split up by its entries' field properties.
+// This function returns the result of this computation.
+const _dataMapper = (data, field) => {
+	// This map is a kind of Object with Key:Array values.
+	// Particularly, Maps allow Keys to be any type.
+	const map = new Map()
+
+	// Loop through each passenger and classify them.
+	data.forEach((passenger) => {
+		mapField = passenger[field]
+
+		// Create a Key:Array pair if it does not yet exist.
+		if (map.get(mapField) === undefined) {
+			map.set(mapField, new Array())
+		}
+
+		// Push passenger to the associated Key:Array pair.
+		map.get(mapField).push(passenger)
+	})
+	return map
 }
 
 const fetchData = () => {
