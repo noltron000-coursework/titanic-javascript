@@ -8,6 +8,14 @@ class SolutionLogger extends Visualizer {
 			this.problem04,
 			this.problem05,
 			this.problem06,
+			this.problem07,
+			this.problem08,
+			this.problem09,
+			this.problem10,
+			this.problem11,
+			this.problem12,
+			this.problem13,
+			this.problem14,
 		]
 		this.logSolutions()
 	}
@@ -88,62 +96,55 @@ class SolutionLogger extends Visualizer {
 	}
 
 	problem06 = () => {
-		{ // Block Scoped to remove unneeded variables after.
-			const prompt = (
-				'PROBLEM #6:\n' +
-				'How many passengers died in each class?\n'
-			)
+		const prompt = (
+			'PROBLEM #6:\n' +
+			'How many passengers died in each class?\n'
+		)
 
-			// ...
-			const partition = partitionData(this.data, 'class', 'survived')
-			// TODO: count the number of falses in each sub-map.
-			const solution = partition
+		// ...
+		const partition = partitionData(this.data, 'class', 'survived')
+		// TODO: count the number of falses in each sub-map.
+		const solution = partition
 
-			return [prompt, solution]
-
-
-
-		}
+		return [prompt, solution]
 	}
-}
+} // !Delete this line when the block-comment is released!
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
-
-
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
+	problem07 = () => {
+		const prompt = (
 			'PROBLEM #7:\n' +
 			'What are all of the ages in the dataset?\n'
 		)
+
 		// Create a filtered dictionary of key/data pairs.
-		let passByAge = T.filterData('age')
-		for (const key in passByAge) {
-			const data = passByAge[key]
-			// Replace data-lists with the count of each age.
-			passByAge[key] = data.length
-		}
-		console.info(
-			passByAge
+		let partition = partitionData(this.data, 'age')
+		// TODO: count the number of unique ages.
+		// NOTE: also, this *could* just use a set of keys...
+		// This could be filtered into 5-year age buckets too.
+		// Replace data-lists with the count of each age.
+		const solution = partition
+
+		return [prompt, solution]
+	}
+
+	problem08 = () => {
+		const prompt = (
+			'PROBLEM #8:\n' +
+			'How many passengers embarked from Queenstown?\n'
 		)
+
+		let partition = partitionData(this.data, 'embarked')
+		// TODO: use the "Q" key from the map and count entries.
+		const solution = partition
+
+		return [prompt, solution]
 	}
 
 
-	console.log(
-		'PROBLEM #8:\n' +
-		'How many passengers embarked from Queenstown?\n'
-	)
-	console.info(
-		dataset
-		// Filter for passengers who embarked from "Q".
-		.filter(passenger => passenger['embarked'] === 'Q')
-		// Then, check how many entries there are.
-		.length
-	)
-
-
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
+	problem09 = () => {
+		const prompt = (
 			'PROBLEM #9:\n' +
 			'How many passengers traveled with a nanny?\n'
 		)
@@ -157,11 +158,13 @@ class SolutionLogger extends Visualizer {
 		console.info(
 			nannyChildren.length
 		)
+		const solution = partition
+
+		return [prompt, solution]
 	}
 
-
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
+	problem10 = () => {
+		const prompt = (
 			'PROBLEM #10:\n' +
 			'What are the youngest and oldest passengers\' age?\n'
 		)
@@ -176,11 +179,12 @@ class SolutionLogger extends Visualizer {
 			Math.min(...ages),
 			Math.max(...ages)
 		)
+
+		return [prompt, solution]
 	}
 
-
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
+	problem11 = () => {
+		const problem = (
 			'PROBLEM #11:\n' +
 			'What are the min and max fares in the dataset?\n'
 		)
@@ -195,24 +199,28 @@ class SolutionLogger extends Visualizer {
 			Math.min(...fares),
 			Math.max(...fares)
 		)
+
+		return [prompt, solution]
 	}
 
+	problem12 = () => {
+		const prompt = (
+			'PROBLEM #12:\n' +
+			'How many siblings are there?\n'
+		)
+		console.info(
+			dataset
+			// Filter for passengers who have one or more siblings.
+			.filter(passenger => passenger.numSiblings > 0)
+			// Count how many passengers meet this criteria.
+			.length
+		)
 
-	console.log(
-		'PROBLEM #12:\n' +
-		'How many siblings are there?\n'
-	)
-	console.info(
-		dataset
-		// Filter for passengers who have one or more siblings.
-		.filter(passenger => passenger.numSiblings > 0)
-		// Count how many passengers meet this criteria.
-		.length
-	)
+		return [prompt, solution]
+	}
 
-
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
+	problem13 = () => {
+		const prompt = (
 			'PROBLEM #13:\n' +
 			'Get survival rates of siblings vs only-children.\n'
 		)
@@ -237,13 +245,19 @@ class SolutionLogger extends Visualizer {
 		console.info(
 			passBySiblings
 		)
+
+		return [prompt, solution]
 	}
 
-	console.log(
-		'PROBLEM #14:\n' +
-		'Count how many unique ages exist in the dataset.\n'
-	)
-	console.info(
-		Object.keys(T.filterData('age')).length
-	)
+	problem14 = () => {
+		const prompt = (
+			'PROBLEM #14:\n' +
+			'Count how many unique ages exist in the dataset.\n'
+		)
+		console.info(
+			Object.keys(T.filterData('age')).length
+		)
+
+		return [prompt, solution]
+	}
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
