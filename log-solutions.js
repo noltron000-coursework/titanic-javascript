@@ -58,11 +58,10 @@ class SolutionLogger extends Visualizer {
 			'How many survived on the titanic?\n'
 		)
 
-		const solution = this.data
-		// Filter data for passengers who survived.
-		.filter(passenger => passenger['survived'] === true)
-		// Then, check how many entries are left.
-		.length
+		// Split data by each passanger's survival.
+		let solution = split(this.data, 'survived')
+		// Count those that did survive (true).
+		solution = solution.get(true).length
 
 		return [prompt, solution]
 	}
@@ -74,23 +73,25 @@ class SolutionLogger extends Visualizer {
 		)
 
 		// ...
-		const partition = split(this.data, 'class')
+		const solution = split(this.data, 'class').keys()
 		// TODO: just count the number of keys in the map!
-		const solution = partition
 
 		return [prompt, solution]
 	}
 
-	problem05 = () => { // Block Scoped to remove unneeded variables after.
+	problem05 = () => {
 		const prompt = (
 			'PROBLEM #5:\n' +
 			'How many passengers are in each class?\n'
 		)
 
 		// ...
-		const partition = split(this.data, 'class')
-		// TODO: count the number of entries in each sub-map.
-		const solution = partition
+		const solution = split(this.data, 'class')
+		// Count the number of passengers in each child array.
+		// Then, reset the property to the count-value.
+		solution.forEach((mapData, mapField) => {
+			solution.set(mapField, mapData.length)
+		})
 
 		return [prompt, solution]
 	}
@@ -101,16 +102,16 @@ class SolutionLogger extends Visualizer {
 			'How many passengers died in each class?\n'
 		)
 
-		// ...
-		const partition = split(this.data, 'class', 'survived')
-		// TODO: count the number of falses in each sub-map.
-		const solution = partition
+		// Split data first by class, and then by survival.
+		const solution = split(this.data, 'class', 'survived')
+		// Count the number of deaths in each child Array.
+		// Then, reset the property to the count-value.
+		solution.forEach((mapData, mapField) => {
+			solution.set(mapField, mapData.get(false).length)
+		})
 
 		return [prompt, solution]
 	}
-} // !Delete this line when the block-comment is released!
-
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 	problem07 = () => {
 		const prompt = (
@@ -119,15 +120,18 @@ class SolutionLogger extends Visualizer {
 		)
 
 		// Create a filtered dictionary of key/data pairs.
-		let partition = split(this.data, 'age')
+		const solution = split(this.data, 'age').keys()
 		// TODO: count the number of unique ages.
 		// NOTE: also, this *could* just use a set of keys...
 		// This could be filtered into 5-year age buckets too.
 		// Replace data-lists with the count of each age.
-		const solution = partition
 
 		return [prompt, solution]
 	}
+
+} // !Delete this line when the block-comment is released!
+
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 	problem08 = () => {
 		const prompt = (
