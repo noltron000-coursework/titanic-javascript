@@ -1,82 +1,114 @@
-const logSolutions = (data) => {
-	console.log(
-		'PROBLEM #1:\n' +
-		'Retrieve the first passanger\'s data.\n'
-	)
-	console.info(
-		data[0]
-	)
+class SolutionLogger extends Visualizer {
+	constructor(data) {
+		super(data)
+		this.problems  = [
+			this.problem01,
+			this.problem02,
+			this.problem03,
+			this.problem04,
+			this.problem05,
+			this.problem06,
+		]
+		this.logSolutions()
+	}
 
-	console.log(
-		'PROBLEM #2:\n' +
-		'Retrieve the length of the dataset.\n'
-	)
-	console.info(
-		data.length
-	)
+	logSolutions = () => {
+		this.problems.forEach((problem) => {
+			const [prompt, solution] = problem()
+			console.log(prompt)
+			console.info(solution)
+		})
+	}
 
+	problem01 = () => {
+		const prompt = (
+			'PROBLEM #1:\n' +
+			'Retrieve the first passanger\'s data.\n'
+		)
 
-	console.log(
-		'PROBLEM #3:\n' +
-		'How many survived on the titanic?\n'
-	)
-	console.info(
-		data
-		// Filter for passengers who survived.
+		// ...
+		const solution = this.data[0]
+
+		return [prompt, solution]
+	}
+
+	problem02 = () => {
+		const prompt = (
+			'PROBLEM #2:\n' +
+			'Retrieve the length of the dataset.\n'
+		)
+
+		// ...
+		const solution = this.data.length
+
+		return [prompt, solution]
+	}
+
+	problem03 = () => {
+		const prompt = (
+			'PROBLEM #3:\n' +
+			'How many survived on the titanic?\n'
+		)
+
+		const solution = this.data
+		// Filter data for passengers who survived.
 		.filter(passenger => passenger['survived'] === true)
-		// Then, check how many entries there are.
+		// Then, check how many entries are left.
 		.length
-	)
 
+		return [prompt, solution]
+	}
 
-	console.log(
-		'PROBLEM #4:\n' +
-		'How many passenger classes exist?\n'
-	)
-	console.info(
-		Object.keys(T.filterData('class')).length
-	)
+	problem04 = () => {
+		const prompt = (
+			'PROBLEM #4:\n' +
+			'How many passenger classes exist?\n'
+		)
 
+		// ...
+		const partition = partitionData(this.data, 'class')
+		// TODO: just count the number of keys in the map!
+		const solution = partition
 
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
+		return [prompt, solution]
+	}
+
+	problem05 = () => { // Block Scoped to remove unneeded variables after.
+		const prompt = (
 			'PROBLEM #5:\n' +
 			'How many passengers are in each class?\n'
 		)
-		// Create a filtered dictionary of key/data pairs.
-		let passByClass = T.filterData('class')
-		for (const key in passByClass) {
-			// Replace data-lists with their length.
-			passByClass[key] = passByClass[key].length
-		}
-		console.info(
-			passByClass
-		)
+
+		// ...
+		const partition = partitionData(this.data, 'class')
+		// TODO: count the number of entries in each sub-map.
+		const solution = partition
+
+		return [prompt, solution]
 	}
 
+	problem06 = () => {
+		{ // Block Scoped to remove unneeded variables after.
+			const prompt = (
+				'PROBLEM #6:\n' +
+				'How many passengers died in each class?\n'
+			)
 
-	{ // Block Scoped to remove unneeded variables after.
-		console.log(
-			'PROBLEM #6:\n' +
-			'How many passengers died in each class?\n'
-		)
+			// ...
+			const partition = partitionData(this.data, 'class', 'survived')
+			// TODO: count the number of falses in each sub-map.
+			const solution = partition
 
-		// Create a filtered dictionary of key/data pairs.
-		// We want to first filter by class.
-		let passByClass = T.filterData('class')
-		for (const key in passByClass) {
-			const data = passByClass[key]
-			// Further filter each class-data with survival rates.
-			const passBySurvival = T.filterData('survived', data)
-			// We only want those who died; use the "false" key.
-			const fatalities = passBySurvival[false]
-			// Replace data-lists with the number of fatalities.
-			passByClass[key] = fatalities.length
+			return [prompt, solution]
+
+
+
 		}
-		console.info(
-			passByClass
-		)
 	}
+}
+
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
 
 
 	{ // Block Scoped to remove unneeded variables after.
@@ -214,4 +246,4 @@ const logSolutions = (data) => {
 	console.info(
 		Object.keys(T.filterData('age')).length
 	)
-}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/

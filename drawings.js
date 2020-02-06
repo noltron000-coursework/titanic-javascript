@@ -1,13 +1,19 @@
+class Visualizer {
+	constructor(data) {
+		this.data = data
+		this.divs = this.data.map((passenger) => {
+			const index = passenger['passengerID']
+			const div = document.createElement('div')
+			div.setAttribute('data-index', index)
+			return div
+		})
+	}
+}
+
 // Get root tags
 const body = document.querySelector('body')
 const html = document.querySelector('html')
 const container = document.querySelector('#container')
-
-
-// Draw Data
-const drawData = (T) => {
-	Dataset = new DataDrawing(T)
-}
 
 class DataDrawing {
 	constructor(T) {
@@ -16,16 +22,6 @@ class DataDrawing {
 		this.renderNodes()
 		this.filterByGender()
 		this.filterBySurvival()
-	}
-
-	createNodes = () => {
-		// nodes array will contain all the passenger nodes.
-		const nodes = this.data.map((passenger, index) => {
-			const div = document.createElement('div')
-			div.setAttribute('data-index', index)
-			return div
-		})
-		this.nodes = nodes
 	}
 
 	renderNodes = () => {

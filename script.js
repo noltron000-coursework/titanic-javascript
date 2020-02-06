@@ -1,37 +1,40 @@
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-class Titanic {
-	constructor(data) {
-		this.data = data
-	}
+// Takes in a data-array and a field-string.
+// Returns a newly partitioned map.
+const _partitionHelper = (data, field) => {
+	console.warn(data)
+	// This partition Object is a dictionary of key/list.
+	// Actually, its not an Object, its a Map.
+	// This allows its keys to be non-string typed.
+	let partition = new Map()
 
-	filterData = (field, data = undefined) => {
-		// Default to use the entire dataset.
-		// This can be switched to use another set,
-		// for example the result of another filter.
-		if (data === undefined) {
-			data = this.data
+	// Loop through each passenger and classify them.
+	data.forEach((passenger) => {
+		fieldValue = passenger[field]
+		// Create a key/list if it does not exist in partition.
+		if (partition.get(fieldValue) === undefined) {
+			partition.set(fieldValue, new Array())
 		}
-
-		// This "filter" object is a dictionary of key/list.
-		// A key/list is a self-contained set of filtered data.
-		let filter = {}
-
-		// Loop through each item and classify them.
-		data.forEach((entry) => {
-			if (!filter.hasOwnProperty(entry[field])) {
-				// Create a key/list if it does not exist in filter.
-				filter[entry[field]] = []
-			}
-			// Push entry to associated key/list.
-			filter[entry[field]].push(entry)
-		})
-
-		return filter
-	}
+		// Push passenger to associated key/list.
+		partition.get(fieldValue).push(passenger)
+	})
+	// Remember: partition is a Map, not an ordinary Object.
+	return partition
 }
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-const fetchData = (manipulate) => {
+const partitionData = (data, ...fields) => {
+	// if there are any fields left
+	if (fields.length > 0) {
+		// retrieve the next field
+		const field = fields.shift()
+		// partition data by field's value
+		data = _partitionHelper(data, field)
+		// repeat on partitioned data
+		return partitionData(data, ...fields)
+	}
+	return data
+}
+
+const fetchData = () => {
 	// Fetch data.
 	fetch('./titanic-passengers.json')
 	.then((response) => {
@@ -46,7 +49,7 @@ const fetchData = (manipulate) => {
 		})
 		// Use the data in the Titanic Class.
 		// Digest the dataset with a "manipulate" function.
-		manipulate(data)
+		const SeeData = new SolutionLogger(data)
 	})
 	.catch((error) => {
 		// Explain error to browser.
@@ -55,4 +58,4 @@ const fetchData = (manipulate) => {
 	})
 }
 
-fetchData(logSolutions)
+fetchData()
