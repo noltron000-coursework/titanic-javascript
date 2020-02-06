@@ -34,7 +34,7 @@ class SolutionLogger extends Visualizer {
 			'Retrieve the first passanger\'s data.\n'
 		)
 
-		// ...
+		// Just call the Array's first index-key.
 		const solution = this.data[0]
 
 		return [prompt, solution]
@@ -46,7 +46,7 @@ class SolutionLogger extends Visualizer {
 			'Retrieve the length of the dataset.\n'
 		)
 
-		// ...
+		// Just call the Array.length property.
 		const solution = this.data.length
 
 		return [prompt, solution]
@@ -72,9 +72,10 @@ class SolutionLogger extends Visualizer {
 			'How many passenger classes exist?\n'
 		)
 
-		// ...
-		const solution = split(this.data, 'class').keys()
-		// TODO: just count the number of keys in the map!
+		// Split data by each passanger's class.
+		let solution = split(this.data, 'class')
+		// Count the number of keys in the map.
+		solution = [...solution.keys()].length
 
 		return [prompt, solution]
 	}
@@ -85,7 +86,7 @@ class SolutionLogger extends Visualizer {
 			'How many passengers are in each class?\n'
 		)
 
-		// ...
+		// Split data by each passanger's class.
 		const solution = split(this.data, 'class')
 		// Count the number of passengers in each child array.
 		// Then, reset the property to the count-value.
@@ -119,19 +120,13 @@ class SolutionLogger extends Visualizer {
 			'What are all of the ages in the dataset?\n'
 		)
 
-		// Create a filtered dictionary of key/data pairs.
-		const solution = split(this.data, 'age').keys()
-		// TODO: count the number of unique ages.
-		// NOTE: also, this *could* just use a set of keys...
-		// This could be filtered into 5-year age buckets too.
-		// Replace data-lists with the count of each age.
+		// Split data by each passanger's age.
+		let solution = split(this.data, 'age')
+		// Count the number of keys in the map.
+		solution = new Set([...solution.keys()])
 
 		return [prompt, solution]
 	}
-
-} // !Delete this line when the block-comment is released!
-
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 	problem08 = () => {
 		const prompt = (
@@ -139,13 +134,13 @@ class SolutionLogger extends Visualizer {
 			'How many passengers embarked from Queenstown?\n'
 		)
 
-		let partition = split(this.data, 'embarked')
-		// TODO: use the "Q" key from the map and count entries.
-		const solution = partition
+		// Split data by each passanger's embarked city.
+		let solution = split(this.data, 'embarked')
+		// Use the "Q" key from the map and count entries.
+		solution = solution.get('Q').length
 
 		return [prompt, solution]
 	}
-
 
 	problem09 = () => {
 		const prompt = (
@@ -153,16 +148,13 @@ class SolutionLogger extends Visualizer {
 			'How many passengers traveled with a nanny?\n'
 		)
 
-		let nannyChildren = dataset
+		let solution = this.data
 		// Get all children under 18.
 		.filter(passenger => passenger['age'] < 18)
 		// Then, get all children without a parent.
 		.filter(passenger => passenger['numChildren'] === 0)
-
-		console.info(
-			nannyChildren.length
-		)
-		const solution = partition
+		// Just count the results!
+		.length
 
 		return [prompt, solution]
 	}
@@ -173,36 +165,38 @@ class SolutionLogger extends Visualizer {
 			'What are the youngest and oldest passengers\' age?\n'
 		)
 
-		const ages = dataset
+		let solution = this.data
 		// Get all ages in the dataset.
 		.map(passenger => passenger.age)
 		// Ensure those ages are defined.
 		.filter(age => age !== undefined)
 
-		console.info(
-			Math.min(...ages),
-			Math.max(...ages)
-		)
+		// Compute the min and max of the Array.
+		solution = [
+			Math.min(...solution),
+			Math.max(...solution)
+		]
 
 		return [prompt, solution]
 	}
 
 	problem11 = () => {
-		const problem = (
+		const prompt = (
 			'PROBLEM #11:\n' +
 			'What are the min and max fares in the dataset?\n'
 		)
 
-		const fares = dataset
+		let solution = this.data
 		// Get all fares in the dataset.
 		.map(passenger => passenger.fare)
 		// Ensure those fares are defined.
 		.filter(fare => fare !== undefined)
 
-		console.info(
-			Math.min(...fares),
-			Math.max(...fares)
-		)
+		// Compute the min and max of the Array.
+		solution = [
+			Math.min(...solution),
+			Math.max(...solution)
+		]
 
 		return [prompt, solution]
 	}
@@ -212,13 +206,12 @@ class SolutionLogger extends Visualizer {
 			'PROBLEM #12:\n' +
 			'How many siblings are there?\n'
 		)
-		console.info(
-			dataset
-			// Filter for passengers who have one or more siblings.
-			.filter(passenger => passenger.numSiblings > 0)
-			// Count how many passengers meet this criteria.
-			.length
-		)
+
+		const solution = this.data
+		// Filter for passengers who have one or more siblings.
+		.filter(passenger => passenger.numSiblings > 0)
+		// Count how many passengers meet this criteria.
+		.length
 
 		return [prompt, solution]
 	}
@@ -226,29 +219,44 @@ class SolutionLogger extends Visualizer {
 	problem13 = () => {
 		const prompt = (
 			'PROBLEM #13:\n' +
-			'Get survival rates of siblings vs only-children.\n'
+			'Get survival rates of those who have siblings\n' +
+			'versus those who are a only-child.\n'
 		)
-		const passBySiblings = T.filterData('numSiblings')
-		for (const key in passBySiblings) {
-			const data = passBySiblings[key]
-			// Further filter each class-data with survival rates.
-			const passBySurvival = T.filterData('survived', data)
-			// We only want the survival rate.
-			// The rate of survival is true / total
-			let survivors = passBySurvival[true]
-			if (survivors !== undefined) {
-				survivors = survivors.length
-			} else {
-				survivors = 0
-			}
-			const total = passBySiblings[key].length
-			const rate = survivors / total
-			// Replace data-lists with the rate of fatality.
-			passBySiblings[key] = rate
-		}
-		console.info(
-			passBySiblings
+
+		// Create solutions map.
+		let solution = new Map()
+
+		// Passangers with siblings.
+		const hasSiblings = this.data
+		.filter(passenger => passenger.numSiblings > 0)
+
+		// Passengers without siblings.
+		const noSiblings = this.data
+		.filter(passenger => passenger.numSiblings === 0)
+
+		// Split data for easier digestion.
+		solution.set(true, split(hasSiblings, 'survived'))
+		solution.set(false, split(noSiblings, 'survived'))
+
+		// Calculate survival rate for those with a sibling.
+		const hasSibRate = (
+			solution.get(true).get(true).length / (
+				solution.get(true).get(true).length
+				+ solution.get(true).get(false).length
+			)
 		)
+
+		// Calculate survival rate for those without a sibling.
+		const noSibRate = (
+			solution.get(false).get(true).length / (
+				solution.get(false).get(true).length
+				+ solution.get(false).get(false).length
+			)
+		)
+
+		// Set new rates to Map-Object.
+		solution.set(true, hasSibRate)
+		solution.set(false, noSibRate)
 
 		return [prompt, solution]
 	}
@@ -258,10 +266,12 @@ class SolutionLogger extends Visualizer {
 			'PROBLEM #14:\n' +
 			'Count how many unique ages exist in the dataset.\n'
 		)
-		console.info(
-			Object.keys(T.filterData('age')).length
-		)
+
+		// Split data by each passanger's age.
+		let solution = split(this.data, 'age')
+		// Count the number of keys in the map.
+		solution = [...solution.keys()].length
 
 		return [prompt, solution]
 	}
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+}
