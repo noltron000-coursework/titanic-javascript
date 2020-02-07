@@ -34,8 +34,9 @@ class ProblemSolver extends Dataset {
 			'Retrieve the first passanger\'s data.\n'
 		)
 
-		// Just call the Array's first index-key.
-		const solution = this.data[0]
+		// Convert data Set to an Array,
+		// then get Array's semi-arbitrary 0th index-key value.
+		const solution = [...this.data][0]
 
 		return [prompt, solution]
 	}
@@ -46,8 +47,8 @@ class ProblemSolver extends Dataset {
 			'Retrieve the length of the dataset.\n'
 		)
 
-		// Just call the Array.length property.
-		const solution = this.data.length
+		// Just call the Set.size property.
+		const solution = this.data.size
 
 		return [prompt, solution]
 	}
@@ -57,11 +58,11 @@ class ProblemSolver extends Dataset {
 			'PROBLEM #3:\n' +
 			'How many survived on the titanic?\n'
 		)
-
-		// Split data by each passanger's survival.
-		let solution = split(this.data, 'survived')
-		// Count those that did survive (true).
-		solution = solution.get(true).length
+		const solution = [...this.data]
+		// Retrieve passengers that managed to survive (true).
+		.filter(passenger => passenger['survived'] === true)
+		// Count them from the resulting Array.
+		.length
 
 		return [prompt, solution]
 	}
@@ -72,10 +73,15 @@ class ProblemSolver extends Dataset {
 			'How many passenger classes exist?\n'
 		)
 
-		// Split data by each passanger's class.
-		let solution = split(this.data, 'class')
-		// Count the number of keys in the map.
-		solution = [...solution.keys()].length
+		const solution = [...this.data]
+		// Check the values under the class field.
+		// Reduce data to just a single Set of possible values.
+		.reduce((keys, passenger) => {
+			return keys.add(passenger['class'])
+		// Initialize reducer with an empty Set.
+		}, new Set())
+		// Count the number of keys in the Set.
+		.size
 
 		return [prompt, solution]
 	}
@@ -86,12 +92,24 @@ class ProblemSolver extends Dataset {
 			'How many passengers are in each class?\n'
 		)
 
-		// Split data by each passanger's class.
-		const solution = split(this.data, 'class')
-		// Count the number of passengers in each child array.
-		// Then, reset the property to the count-value.
-		solution.forEach((mapData, mapField) => {
-			solution.set(mapField, mapData.length)
+		const keys = [...this.data]
+		// Check the values under the class field.
+		// Reduce data to just a single Set of possible values.
+		.reduce((keys, passenger) => {
+			return keys.add(passenger['class'])
+		// Initialize reducer with an empty Set.
+		}, new Set())
+
+		const solution = new Map()
+		keys.forEach((key) => {
+			const mapData = [...this.data]
+			// Construct filter based on class-value.
+			.filter((passenger) => passenger['class'] === key)
+			// Get the length of the Array.
+			.length
+
+			// Set the solution map with key/data.
+			solution.set(key, mapData)
 		})
 
 		return [prompt, solution]
