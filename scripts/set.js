@@ -21,17 +21,17 @@ Set.prototype.symmetricDifference = function(that) {
 }
 
 Array.prototype.union = function(that) {
-	return [...new Set(this).union(new Set(that))]
+	return new Set(this).union(new Set(that))
 }
 
 Array.prototype.intersection = function(that) {
-	return [...new Set(this).intersection(new Set(that))]
+	return new Set(this).intersection(new Set(that))
 }
 
 Array.prototype.difference = function(that) {
-	return [...new Set(this).difference(new Set(that))]
+	return new Set(this).difference(new Set(that))
 }
 
 Array.prototype.symmetricDifference = function(that) {
-	return [...new Set(this).symmetricDifference(new Set(that))]
+	return new Set(this).symmetricDifference(new Set(that))
 }

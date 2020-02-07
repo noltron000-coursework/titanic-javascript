@@ -58,11 +58,7 @@ class ProblemSolver extends Dataset {
 			'PROBLEM #3:\n' +
 			'How many survived on the titanic?\n'
 		)
-		const solution = [...this.data]
-		// Retrieve passengers that managed to survive (true).
-		.filter(passenger => passenger['survived'] === true)
-		// Count them from the resulting Array.
-		.length
+		let solution = dataMapper(this.data, 'survived').get(true).size
 
 		return [prompt, solution]
 	}
@@ -73,15 +69,7 @@ class ProblemSolver extends Dataset {
 			'How many passenger classes exist?\n'
 		)
 
-		const solution = [...this.data]
-		// Check the values under the class field.
-		// Reduce data to just a single Set of possible values.
-		.reduce((keys, passenger) => {
-			return keys.add(passenger['class'])
-		// Initialize reducer with an empty Set.
-		}, new Set())
-		// Count the number of keys in the Set.
-		.size
+		let solution = [...dataMapper(this.data, 'class')].length
 
 		return [prompt, solution]
 	}
@@ -92,24 +80,10 @@ class ProblemSolver extends Dataset {
 			'How many passengers are in each class?\n'
 		)
 
-		const keys = [...this.data]
-		// Check the values under the class field.
-		// Reduce data to just a single Set of possible values.
-		.reduce((keys, passenger) => {
-			return keys.add(passenger['class'])
-		// Initialize reducer with an empty Set.
-		}, new Set())
-
-		const solution = new Map()
-		keys.forEach((key) => {
-			const mapData = [...this.data]
-			// Construct filter based on class-value.
-			.filter((passenger) => passenger['class'] === key)
-			// Get the length of the Array.
-			.length
-
+		const solution = dataMapper(this.data, 'class')
+		solution.forEach((mapData, mapKey) => {
 			// Set the solution map with key/data.
-			solution.set(key, mapData)
+			solution.set(mapKey, mapData.size)
 		})
 
 		return [prompt, solution]
@@ -121,15 +95,16 @@ class ProblemSolver extends Dataset {
 			'How many passengers died in each class?\n'
 		)
 
-		// Split data first by class, and then by survival.
-		const solution = split(this.data, 'class', 'survived')
-		// Count the number of deaths in each child Array.
-		// Then, reset the property to the count-value.
-		solution.forEach((mapData, mapField) => {
-			solution.set(mapField, mapData.get(false).length)
+		const passByClass = dataMapper(this.data, 'class')
+		const passWhoDied = dataMapper(this.data, 'survived').get(false)
+
+		passByClass.forEach((mapData, mapKey) => {
+			mapData = mapData.intersection(passWhoDied)
+			// Set the solution map with key/data.
+			passByClass.set(mapKey, mapData.size)
 		})
 
-		return [prompt, solution]
+		return [prompt, passByClass]
 	}
 
 	problem07 = () => {
@@ -139,7 +114,7 @@ class ProblemSolver extends Dataset {
 		)
 
 		// Split data by each passanger's age.
-		let solution = split(this.data, 'age')
+		let solution = dataMapper(this.data, 'age')
 		// Count the number of keys in the map.
 		solution = new Set([...solution.keys()])
 
@@ -153,9 +128,9 @@ class ProblemSolver extends Dataset {
 		)
 
 		// Split data by each passanger's embarked city.
-		let solution = split(this.data, 'embarked')
+		let solution = dataMapper(this.data, 'embarked')
 		// Use the "Q" key from the map and count entries.
-		solution = solution.get('Q').length
+		solution = solution.get('Q').size
 
 		return [prompt, solution]
 	}
@@ -166,7 +141,7 @@ class ProblemSolver extends Dataset {
 			'How many passengers traveled with a nanny?\n'
 		)
 
-		let solution = this.data
+		let solution = [...this.data]
 		// Get all children under 18.
 		.filter(passenger => passenger['age'] < 18)
 		// Then, get all children without a parent.
@@ -183,7 +158,7 @@ class ProblemSolver extends Dataset {
 			'What are the youngest and oldest passengers\' age?\n'
 		)
 
-		let solution = this.data
+		let solution = [...this.data]
 		// Get all ages in the dataset.
 		.map(passenger => passenger.age)
 		// Ensure those ages are defined.
@@ -204,7 +179,7 @@ class ProblemSolver extends Dataset {
 			'What are the min and max fares in the dataset?\n'
 		)
 
-		let solution = this.data
+		let solution = [...this.data]
 		// Get all fares in the dataset.
 		.map(passenger => passenger.fare)
 		// Ensure those fares are defined.
@@ -225,7 +200,7 @@ class ProblemSolver extends Dataset {
 			'How many siblings are there?\n'
 		)
 
-		const solution = this.data
+		const solution = [...this.data]
 		// Filter for passengers who have one or more siblings.
 		.filter(passenger => passenger.numSiblings > 0)
 		// Count how many passengers meet this criteria.
@@ -241,37 +216,30 @@ class ProblemSolver extends Dataset {
 			'versus those who are a only-child.\n'
 		)
 
-		// Create solutions map.
-		let solution = new Map()
 
 		// Passangers with siblings.
-		const hasSiblings = this.data
-		.filter(passenger => passenger.numSiblings > 0)
-
+		const hasSiblings = new Set([...this.data]
+		.filter(passenger => passenger['numSiblings'] > 0))
 		// Passengers without siblings.
-		const noSiblings = this.data
-		.filter(passenger => passenger.numSiblings === 0)
-
-		// Split data for easier digestion.
-		solution.set(true, split(hasSiblings, 'survived'))
-		solution.set(false, split(noSiblings, 'survived'))
+		const noSiblings = new Set([...this.data]
+		.filter(passenger => passenger['numSiblings'] === 0))
+		// Passengers who survived.
+		const survivors = new Set([...this.data]
+		.filter(passenger => passenger['survived'] === true))
 
 		// Calculate survival rate for those with a sibling.
 		const hasSibRate = (
-			solution.get(true).get(true).length / (
-				solution.get(true).get(true).length
-				+ solution.get(true).get(false).length
-			)
+			hasSiblings.intersection(survivors).size
+			/ hasSiblings.size
 		)
 
 		// Calculate survival rate for those without a sibling.
 		const noSibRate = (
-			solution.get(false).get(true).length / (
-				solution.get(false).get(true).length
-				+ solution.get(false).get(false).length
-			)
+			noSiblings.intersection(survivors).size
+			/ noSiblings.size
 		)
 
+		const solution = new Map()
 		// Set new rates to Map-Object.
 		solution.set(true, hasSibRate)
 		solution.set(false, noSibRate)
@@ -286,7 +254,7 @@ class ProblemSolver extends Dataset {
 		)
 
 		// Split data by each passanger's age.
-		let solution = split(this.data, 'age')
+		let solution = dataMapper(this.data, 'age')
 		// Count the number of keys in the map.
 		solution = [...solution.keys()].length
 
