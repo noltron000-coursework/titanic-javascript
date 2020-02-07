@@ -1,4 +1,4 @@
-class SolutionLogger extends Dataset {
+class ProblemSolver extends Dataset {
 	constructor(data) {
 		super(data)
 		this.problems  = [
