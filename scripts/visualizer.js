@@ -3,13 +3,19 @@ class Visualizer extends Dataset{
 		super(data)
 		this.renderNodes()
 		this.filterByGender()
-		// this.filterBySurvival()
+		this.filterBySurvival()
 	}
 
 	renderNodes = () => {
 		const parent = document.getElementById('container')
 		this.divs.forEach((div) => {
 			parent.appendChild(div)
+		})
+	}
+
+	clearFilters = () => {
+		[...this.divs].forEach((div) => {
+			div.className = ''
 		})
 	}
 
@@ -30,6 +36,26 @@ class Visualizer extends Dataset{
 
 		this.divify(...women).forEach((div) => {
 			div.classList.add('female')
+		})
+	}
+
+	filterBySurvival = () => {
+		const survived = new Set([...this.data]
+		.filter((passenger) => {
+			return passenger.survived
+		}))
+
+		const deceased = new Set([...this.data]
+		.filter((passenger) => {
+			return !passenger.survived
+		}))
+
+		this.divify(...survived).forEach((div) => {
+			div.classList.add('survived')
+		})
+
+		this.divify(...deceased).forEach((div) => {
+			div.classListg.add('deceased')
 		})
 	}
 
