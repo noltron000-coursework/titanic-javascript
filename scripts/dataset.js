@@ -9,26 +9,33 @@ class Dataset {
 		}))
 	}
 
-	divify = (data) => {
-		return new Set(data.map((passenger) => {
-			const passengerID = passenger['passengerID'];
-			[...this.divs].forEach((node) => {
-				if (node.getAttribute('data-index') === passengerID) {
-					return node
+	divify = (...data) => {
+		// This is pretty inefficient, but it should work.
+		const divs = new Set()
+		data.forEach((passenger) => {
+			const passengerID = passenger['passengerID']
+			;[...this.divs].forEach((div) => {
+				const divID = parseInt(div.getAttribute('data-index'))
+				if (passengerID === divID) {
+					divs.add(div)
 				}
 			})
-		}))
+		})
+		return divs
 	}
 
-	datafy = (divs) => {
+	datafy = (...divs) => {
 		// This is pretty inefficient, but it should work.
-		return new Set(divs.map((node) => {
-			const nodeID = node.getAttribute('data-index');
-			[...this.data].forEach((passenger) => {
-				if (passenger['passengerID'] === nodeID) {
-					return passenger
+		const data = new Set()
+		divs.forEach((div) => {
+			const divID = parseInt(div.getAttribute('data-index'))
+			;[...this.data].forEach((passenger) => {
+				const passengerID = passenger['passengerID']
+				if (passengerID === divID) {
+					data.add(passenger)
 				}
 			})
-		}))
+		})
+		return passenger
 	}
 }

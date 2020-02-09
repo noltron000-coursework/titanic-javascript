@@ -1,62 +1,60 @@
-// Get root tags
-const body = document.querySelector('body')
-const html = document.querySelector('html')
-const container = document.querySelector('#container')
-
-class DataDrawing {
-	constructor(T) {
-		this.data = T.data
-		this.createNodes()
+class Visualizer extends Dataset{
+	constructor(data) {
+		super(data)
 		this.renderNodes()
 		this.filterByGender()
-		this.filterBySurvival()
+		// this.filterBySurvival()
 	}
 
 	renderNodes = () => {
 		const parent = document.getElementById('container')
-		this.nodes.forEach((div) => {
+		this.divs.forEach((div) => {
 			parent.appendChild(div)
 		})
 	}
 
 	filterByGender = () => {
-		const men = this.nodes.filter((div, index) => {
-			const passenger = this.data[index]
+		const men = new Set([...this.data]
+		.filter((passenger) => {
 			return passenger.sex == 'male'
-		})
+		}))
 
-		const women = this.nodes.filter((div, index) => {
-			const passenger = this.data[index]
+		const women = new Set([...this.data]
+		.filter((passenger) => {
 			return passenger.sex == 'female'
-		})
+		}))
 
-		men.forEach((div) => {
+		this.divify(...men).forEach((div) => {
 			div.classList.add('male')
 		})
-		women.forEach((div) => {
+
+		this.divify(...women).forEach((div) => {
 			div.classList.add('female')
 		})
 	}
 
-	filterBySurvival = () => {
-		const died = this.nodes.filter((div, index) => {
-			const passenger = this.data[index]
-			return passenger.survived == true
-		})
+	// filterBySurvival = () => {
+	// 	const died = [...this.divs]
+	// 	.filter((div, index) => {
+	// 		const passenger = this.data[index]
+	// 		return passenger.survived == true
+	// 	})
 
-		const survived = this.nodes.filter((div, index) => {
-			const passenger = this.data[index]
-			return passenger.survived == false
-		})
+	// 	const survived = [...this.divs]
+	// 	.filter((div, index) => {
+	// 		const id = div.getAttribute
+	// 		const passenger = this.data[index]
+	// 		return passenger.survived == false
+	// 	})
 
-		died.forEach((div) => {
-			div.classList.add('died')
-		})
+	// 	died.forEach((div) => {
+	// 		div.classList.add('died')
+	// 	})
 
-		survived.forEach((div) => {
-			div.classList.add('survived')
-		})
-	}
+	// 	survived.forEach((div) => {
+	// 		div.classList.add('survived')
+	// 	})
+	// }
 }
 
 

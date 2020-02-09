@@ -37,7 +37,7 @@ const fetchData = () => {
 		})
 		// Use the data in the Titanic Class.
 		// Digest the dataset with a "manipulate" function.
-		const SeeData = new ProblemSolver(data)
+		const SeeData = new Visualizer(data)
 	})
 	.catch((error) => {
 		// Explain error to browser.
