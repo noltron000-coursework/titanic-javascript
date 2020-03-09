@@ -1,34 +1,34 @@
 class ProblemSolver extends Dataset {
 	constructor(data) {
 		super(data)
-		this.problems  = [
-			this.problem01,
-			this.problem02,
-			this.problem03,
-			this.problem04,
-			this.problem05,
-			this.problem06,
-			this.problem07,
-			this.problem08,
-			this.problem09,
-			this.problem10,
-			this.problem11,
-			this.problem12,
-			this.problem13,
-			this.problem14,
+		this.questions = [
+			this.problem01(),
+			this.problem02(),
+			this.problem03(),
+			this.problem04(),
+			this.problem05(),
+			this.problem06(),
+			this.problem07(),
+			this.problem08(),
+			this.problem09(),
+			this.problem10(),
+			this.problem11(),
+			this.problem12(),
+			this.problem13(),
+			this.problem14(),
 		]
 		this.logSolutions()
 	}
 
-	logSolutions = () => {
-		this.problems.forEach((problem) => {
-			const [prompt, solution] = problem()
+	logSolutions () {
+		this.questions.forEach((question) => {
+			const [prompt, solution] = question
 			console.log(prompt)
 			console.info(solution)
 		})
 	}
 
-	problem01 = () => {
+	problem01 () {
 		const prompt = (
 			'PROBLEM #1:\n' +
 			'Retrieve the first passanger\'s data.\n'
@@ -41,7 +41,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem02 = () => {
+	problem02 () {
 		const prompt = (
 			'PROBLEM #2:\n' +
 			'Retrieve the length of the dataset.\n'
@@ -53,7 +53,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem03 = () => {
+	problem03 () {
 		const prompt = (
 			'PROBLEM #3:\n' +
 			'How many survived on the titanic?\n'
@@ -63,7 +63,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem04 = () => {
+	problem04 () {
 		const prompt = (
 			'PROBLEM #4:\n' +
 			'How many passenger classes exist?\n'
@@ -74,7 +74,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem05 = () => {
+	problem05 () {
 		const prompt = (
 			'PROBLEM #5:\n' +
 			'How many passengers are in each class?\n'
@@ -89,7 +89,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem06 = () => {
+	problem06 () {
 		const prompt = (
 			'PROBLEM #6:\n' +
 			'How many passengers died in each class?\n'
@@ -107,7 +107,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, passByClass]
 	}
 
-	problem07 = () => {
+	problem07 () {
 		const prompt = (
 			'PROBLEM #7:\n' +
 			'What are all of the ages in the dataset?\n'
@@ -121,7 +121,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem08 = () => {
+	problem08 () {
 		const prompt = (
 			'PROBLEM #8:\n' +
 			'How many passengers embarked from Queenstown?\n'
@@ -135,7 +135,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem09 = () => {
+	problem09 () {
 		const prompt = (
 			'PROBLEM #9:\n' +
 			'How many passengers traveled with a nanny?\n'
@@ -152,7 +152,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem10 = () => {
+	problem10 () {
 		const prompt = (
 			'PROBLEM #10:\n' +
 			'What are the youngest and oldest passengers\' age?\n'
@@ -173,7 +173,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem11 = () => {
+	problem11 () {
 		const prompt = (
 			'PROBLEM #11:\n' +
 			'What are the min and max fares in the dataset?\n'
@@ -194,7 +194,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem12 = () => {
+	problem12 () {
 		const prompt = (
 			'PROBLEM #12:\n' +
 			'How many siblings are there?\n'
@@ -209,7 +209,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem13 = () => {
+	problem13 () {
 		const prompt = (
 			'PROBLEM #13:\n' +
 			'Get survival rates of those who have siblings\n' +
@@ -247,7 +247,7 @@ class ProblemSolver extends Dataset {
 		return [prompt, solution]
 	}
 
-	problem14 = () => {
+	problem14 () {
 		const prompt = (
 			'PROBLEM #14:\n' +
 			'Count how many unique ages exist in the dataset.\n'

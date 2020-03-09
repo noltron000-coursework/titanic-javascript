@@ -21,7 +21,7 @@ class Passenger {
 		// This field includes both children & parents.
 		this.numChildren = entry['fields']['parch']
 		// This field is a string where it should be boolean.
-		this.survived = this._cleanSurvived(entry)
+		this.survived = _cleanSurvived(entry)
 
 		// Passenger - ticket information.
 		this.fare = entry['fields']['fare']
@@ -29,16 +29,16 @@ class Passenger {
 		this.cabin = entry['fields']['cabin']
 		this.embarked = entry['fields']['embarked']
 	}
+}
 
-	_cleanSurvived = (entry) => {
-		// This internal function cleans the "survived" field.
-		switch (entry['fields']['survived']) {
-			case 'Yes':
-				return true
-			case 'No':
-				return false
-			default:
-				return null
-		}
+_cleanSurvived = (entry) => {
+	// This internal function cleans the "survived" field.
+	switch (entry['fields']['survived']) {
+		case 'Yes':
+			return true
+		case 'No':
+			return false
+		default:
+			return null
 	}
 }
